@@ -19,6 +19,7 @@ const App = () => {
           </radialGradient>
         </defs>
       </svg>
+	  
       <SearchComponent />
     </div>
   );

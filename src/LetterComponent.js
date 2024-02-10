@@ -17,7 +17,7 @@ const LetterComponent = ({
 
       <input
         type="text"
-        placeholder='From'
+        placeholder='who??'
         value={letterFormData.from}
         onChange={(e) => handleChange('from', e.target.value)}
       />

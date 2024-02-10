@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { credentials } from './credentials';
+import { Card, CardContent, CardHeader,Input, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from './LetterComponent';
 import './style.css';
+import { credentials } from './credentials';
 
 const { username, password } = credentials;
 
 const SearchComponent = () => {
   const [searchInputValue, setSearchInputValue] = useState('');
+  const [showLetterComponent, setShowLetterComponent] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [isFixed, setIsFixed] = useState(false);
   const [blurrerVisible, setBlurrerVisible] = useState(false);
-  const [letterFormData, setLetterFormData] = useState({
-    from: '',
-    to: '',
-    subject: '',
-    body: ''
-  });
   const [selectedResult, setSelectedResult] = useState(null);
+  const [isFixed, setIsFixed] = useState(false);
 
   const handleSearchInputChange = async (event) => {
     const query = event.target.value;
@@ -30,47 +26,16 @@ const SearchComponent = () => {
         },
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const data = await response.json();
       setSearchResults(data.hits.hits.map(offre => ({ id: offre._id, ...offre._source })));
+      setSearchInputValue(query);
     } catch (error) {
       console.error('Error fetching data from Elasticsearch:', error);
     }
-  };
-
-  const showLetterDiv = () => {
-    const originalDiv = document.getElementById('description');
-    const letterDiv = document.createElement('div');
-    letterDiv.id = 'letterDiv';
-
-    letterDiv.innerHTML = <LetterComponent onSendLetter={sendLetter} onRemoveLetterDiv={removeLetterDiv} letterFormData={letterFormData} setLetterFormData={setLetterFormData} />;
-
-    const hiddenDesc = originalDiv.cloneNode(true);
-    hiddenDesc.id = 'hidden-description';
-    hiddenDesc.style.display = 'none';
-    document.body.append(hiddenDesc);
-    originalDiv.replaceWith(letterDiv);
-  };
-
-  const removeLetterDiv = () => {
-    const letterDiv = document.getElementById('letterDiv');
-    const hiddenDesc = document.getElementById('hidden-description');
-
-    if (letterDiv && hiddenDesc) {
-      hiddenDesc.id = 'description';
-      hiddenDesc.style.display = 'block';
-      letterDiv.replaceWith(hiddenDesc);
-    } else {
-      console.error('Original element (hiddenDesc or letterDiv) not found.');
-    }
-  };
-
-  const sendLetter = () => {
-    alert('Letter sent!');
-    removeLetterDiv();
-  };
-
-  const displayResults = (results) => {
-    setSearchResults(results);
   };
 
   const showMore = async (id) => {
@@ -99,57 +64,141 @@ const SearchComponent = () => {
     setBlurrerVisible(false);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const offsetTop = document.getElementById('searchInput').offsetTop;
-      setIsFixed(window.scrollY > offsetTop);
-    };
+const CardComponent = ({ title, company_name, location, via, description, onCloseClick }) => {
+  return (
+    <div className="modal">
+      <Card variant="outlined" className="job-card">
+        <CardContent>
+          <CardHeader title={title} subheader={`${company_name}, ${location}`} />
+          <Typography>
+            <Typography component="span" variant="body2" color="textSecondary">
+              <strong>Via:</strong> {via}
+            </Typography><br/>
+            <div className="scrollable-text">
+            <Typography component="span" variant="body2" color="textSecondary">
+              {description}
+            </Typography>
+            </div>
+          </Typography>
+          <CardActions>
+            <Button variant="outlined" onClick={closeBlurrer}>
+              Close
+            </Button>
+          </CardActions>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
 
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+//const CardComponent = ({ title, company_name, location, via, description, onCloseClick }) => {
+//  return (
+//    <div className="modal">
+//      <Card variant="outlined" className="job-card">
+//        <CardContent>
+//          <CardHeader title={title} subheader={`${company_name}, ${location}`} />
+//          <Typography>
+//            <p><strong>Via:</strong> {via}</p>
+//            <p>{description}</p>
+//          </Typography>
+//          <CardActions>
+//            <Button variant="outlined" onClick={onCloseClick}>
+//              Close
+//            </Button>
+//          </CardActions>
+//        </CardContent>
+//      </Card>
+//    </div>
+//  );
+//};
 
   return (
-    <div id='search-engine-wrapper'>
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="What job are you looking for?"
-        value={searchInputValue}
-        onChange={handleSearchInputChange}
-        className={isFixed ? 'fixed' : ''}
-      />
-      <div id="searchResults">
-        {searchResults.map(result => (
-          <div key={result.id} className="job_result">
-            <div className="job_info">
-              <p><strong>Title</strong> : {result.title}</p>
-              <p><strong>Company name</strong> : {result.company_name}</p>
-              <p><strong>Location</strong> : {result.location}</p>
-              <p><strong>Via</strong> : {result.via}</p>
-              <p className="description" style={{ display: 'none' }}><strong>Description</strong> : {result.description}</p>
-              <button className="description-button" onClick={() => showMore(result.id)}>More</button>
-            </div>
-          </div>
-        ))}
-      </div>
-      {blurrerVisible && (
-        <div id="blurrer">
-          <p>Title: {selectedResult.title}</p>
-          {blurrerVisible && (
-            <LetterComponent
-              onSendLetter={sendLetter}
-              onRemoveLetterDiv={removeLetterDiv}
-              letterFormData={letterFormData}
-              setLetterFormData={setLetterFormData}
-            />
-          )}
+      <div id='search-engine-wrapper'>
+    <OutlinedInput
+    // variant='outlined'
+      id='search-input'
+      placeholder='What job are you looking for?'
+      type="text"
+      value={searchInputValue}
+      onChange={handleSearchInputChange}
+    />
+    <div id='search-results'>
+      {searchResults.map(result => (
+        <div key={result.id}>
+          {/* Display search results */}
+          <Typography variant="h6">Title: {result.title}</Typography>
+          <Typography variant="body1">Company name: {result.company_name}</Typography>
+          <Typography variant="body1">Location: {result.location}</Typography>
+          <Typography variant="body2">Via: {result.via}</Typography>
+          {/* Uncomment the following line if you want to display the description */}
+          {/* <Typography variant="body2">Description: {result.description}</Typography> */}
+          <Button variant="outlined" onClick={() => showMore(result.id)}>
+            More
+          </Button>
         </div>
-      )}
+      ))}
     </div>
+    {blurrerVisible && (
+      <CardComponent
+        title={selectedResult.title}
+        company_name={selectedResult.company_name}
+        location={selectedResult.location}
+        via={selectedResult.via}
+        description={selectedResult.description}
+      />
+    )}
+  </div>
+
+//     <Typography id='search-engine-wrapper'>
+//       <input 
+//       id='searchInput' 
+//       placeholder='What job are you looking for?'
+//       type="text"
+//       value={searchInputValue} 
+//       onChange={handleSearchInputChange} />
+//         <div id='search-results'>
+//     {searchResults.map(result => (
+//       <Typography key={result.id}>
+//         {/* Display search results */}
+//         <Typography variant="h6">Title: {result.title}</Typography>
+//         <Typography variant="body1">Company name: {result.company_name}</Typography>
+//         <Typography variant="body1">Location: {result.location}</Typography>
+//         <Typography variant="body2">Via: {result.via}</Typography>
+//         {/* Uncomment the following line if you want to display the description */}
+//         {/* <Typography variant="body2">Description: {result.description}</Typography> */}
+//         <Button variant="outlined" onClick={() => showMore(result.id)}>
+//           More
+//         </Button>
+//       </Typography>
+//     ))}
+//   </div>
+// {/* 
+//     <div id='search-results'>
+//       {searchResults.map(result => (
+//         <div key={result.id}>
+//           {/* Display search results */}
+//           {/* <p>Title: {result.title}</p>
+//           <p>Company name: {result.company_name}</p>
+//           <p>Location: {result.location}</p>
+//           <p>Via: {result.via}</p>
+//           {/* <p>Description: {result.description}</p> */}
+//           {/* <Button variant="outlined" onClick={() => showMore(result.id)}>
+//             More
+//           </Button>
+//         </div>
+//       ))} */}
+//         {/* </div> */} 
+  
+//       {blurrerVisible && (
+//         <CardComponent
+//           title={selectedResult.title}
+//           company_name={selectedResult.company_name}
+//           location={selectedResult.location}
+//           via={selectedResult.via}
+//           description={selectedResult.description}
+//         />
+//       )}
+//     </Typography>
   );
 };
 

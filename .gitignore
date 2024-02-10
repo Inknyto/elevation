@@ -2,9 +2,10 @@
 
 # dependencies
 /node_modules
+/src/credentials.js
 /.pnp
 .pnp.js
-/src/credentials.js
+
 # testing
 /coverage
 
