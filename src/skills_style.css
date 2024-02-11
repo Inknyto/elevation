@@ -1,0 +1,19 @@
+.skill_category {
+    height: 45px;
+    overflow: scroll; 
+}
+  
+  .skill_category > span {
+    display: inline-block; /* or block, depending on your layout needs */
+    white-space: nowrap; /* Prevent line breaks within spans */
+    overflow: auto; /* Allow content to be scrolled if it overflows */
+    font-weight: bold;
+    padding: 5px;
+    margin: 10px;
+}
+
+.skill{
+    background-color: blueviolet;
+    border-radius: 15px;
+
+}

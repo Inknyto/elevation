@@ -55,6 +55,26 @@ svg{
   display:block;
   align-content:start;
 }
+
+.skill_category {
+    overflow: scroll; 
+    display:flex;
+    align-items:center;
+}
+  
+  .skill {
+    display: inline-block; /* or block, depending on your layout needs */
+    white-space: nowrap; /* Prevent line breaks within spans */
+    overflow: auto; /* Allow content to be scrolled if it overflows */
+    font-weight: bold;
+    padding: 5px;
+    margin: 5px;
+    color:white;
+    background-color: #632c7f;
+    border-radius: 15px;
+
+}
+
 .result-div{
     display: grid;
     margin-bottom: 20px;

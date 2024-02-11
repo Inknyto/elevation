@@ -1,6 +1,7 @@
 import React from 'react';
 import Icons from './Icons';
 import SearchComponent from './SearchComponent';
+import FooterComponent from './FooterComponent';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
       </svg>
 	  </div>
       <SearchComponent />
+	  <FooterComponent />
     </div>
   );
 };
