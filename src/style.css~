@@ -27,7 +27,7 @@ body {
 
 
 .job_skills{
-  display:block;
+  display:flex;
   align-content:start;
 }
 .result-div{
