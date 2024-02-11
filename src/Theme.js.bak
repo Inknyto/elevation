@@ -1,7 +1,7 @@
 // theme.js
 import { createTheme } from '@mui/material/styles';
 
-const lightTheme = createTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#632c7f', // Purple color
@@ -14,5 +14,4 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
-
-export { lightTheme, darkTheme };
+export default theme;

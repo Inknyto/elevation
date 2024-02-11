@@ -70,6 +70,10 @@ const SearchComponent = () => {
     setBlurrerVisible(false);
   };
 
+  const toggleLetter = () => {
+    setShowLetterComponent(!showLetterComponent);
+  };
+
   const handleSendLetter = () => {
   };
   const handleRemoveLetterDiv = () => {
@@ -82,7 +86,7 @@ const SearchComponent = () => {
         <Card variant="outlined" className="job-card">
           <CardContent>
             <CardHeader title={title} subheader={`${company_name}, ${location}`} />
-            <Typography component={'span'} >
+            <Typography component="span" >
               <Typography component="span" variant="body2" color="textSecondary">
                 <strong>Via:</strong> {via}
               </Typography><br />
@@ -93,7 +97,7 @@ const SearchComponent = () => {
               </div>
             </Typography>
             <CardActions>
-              <Button variant="outlined" onClick={() => setShowLetterComponent(!showLetterComponent)}>
+              <Button variant="outlined" onClick={toggleLetter}>
                 Apply
               </Button>
             </CardActions>

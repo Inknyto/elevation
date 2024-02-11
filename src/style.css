@@ -24,6 +24,31 @@ body {
   width: 170vh; /* Adjust as needed */
 }
 
+/* Icons.css */
+.icons-container {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  z-index: 999; /* Make sure icons are above everything else */
+  padding: 10px;
+}
+svg{
+  transition: all 0.3s ease 0s;
+}
+.icon:hover svg{
+  box-shadow: 0px 15px 20px #0000005c;
+  transform: translateY(-7px);
+}
 
 
 .job_skills{
@@ -73,7 +98,7 @@ textarea {
 }
 
 #search-input {
-  width: 70vw;
+  width: 50vw;
   margin: 10px;
   padding: 20px;
   font-size: 16px;
@@ -81,6 +106,14 @@ textarea {
   border-radius: 5px;
   z-index: 2;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+svg{
+	border-radius:50px;
+	padding: 5px;
+	margin-bottom:20px;
+	margin-top:10px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 #letterDiv {
@@ -141,7 +174,7 @@ textarea {
 }
 
 #search-results {
-  width: 100%;
+  width: 80%;
   padding: 30px;
   border-radius: 5px;
   margin-top: 50px;
@@ -167,7 +200,7 @@ button {
   cursor: pointer;
   outline: none;
   margin: 5px 0;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
