@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, Input, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from './LetterComponent';
 import './style.css';
@@ -7,8 +7,8 @@ import { credentials } from './credentials';
 const { username, password } = credentials;
 
 const SearchComponent = () => {
-  const [searchInputValue, setSearchInputValue] = useState('');
   const [showLetterComponent, setShowLetterComponent] = useState(false);
+  const [isInputDocked, setIsInputDocked] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [blurrerVisible, setBlurrerVisible] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
@@ -38,7 +38,6 @@ const SearchComponent = () => {
 
       const data = await response.json();
       setSearchResults(data.hits.hits.map(offre => ({ id: offre._id, ...offre._source })));
-      setSearchInputValue(query);
     } catch (error) {
       console.error('Error fetching data from Elasticsearch:', error);
     }
@@ -111,6 +110,30 @@ const SearchComponent = () => {
       </div>
     );
   };
+  const handleScroll = () => {
+    // Adjust the threshold value based on when you want the input to be docked
+    const threshold = 200;
+
+    if (window.scrollY > threshold && !isInputDocked) {
+      setIsInputDocked(true);
+    } else if (window.scrollY <= threshold && isInputDocked) {
+      setIsInputDocked(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isInputDocked]);
+
+
+
+  useEffect(() => {
+  }, []);
+
 
   return (
     <div id='search-engine-wrapper'>
@@ -119,10 +142,20 @@ const SearchComponent = () => {
         id='search-input'
         placeholder='What job are you looking for?'
         type="text"
-        value={searchInputValue}
+        style={{
+          position: isInputDocked ? 'fixed' : 'relative',
+          top: isInputDocked ? 10 : 'auto',
+          zIndex: 1000,
+          backgroundColor: 'white',
+        }}
         onChange={handleSearchInputChange}
       />
-      <div id='search-results'>
+
+      <div id='search-results' 
+        style={{
+          marginTop: isInputDocked ? '21vh' : '25px',
+	}}
+	  >
         {searchResults.map(result => (
           <div className='result-div' key={result.id}>
 		<div className='result-data'>
