@@ -132,7 +132,7 @@ textarea {
 }
 
 .logo{
-	border-radius:50px;
+	border-radius:65px;
 	padding: 5px;
 	margin-bottom:20px;
 	margin-top:10px;
