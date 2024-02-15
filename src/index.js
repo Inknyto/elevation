@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { DarkModeProvider, DarkModeContext } from './DarkMode';
 import { lightTheme, darkTheme } from './Theme';
@@ -12,6 +13,7 @@ function AppWithTheme() {
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+	  <CssBaseline/>
       <App handleDarkModeToggle={toggleDarkMode} />
     </ThemeProvider>
   );

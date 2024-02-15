@@ -1,29 +1,27 @@
-import React, {useContext, useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App'; // Assuming this is your main component
+import React, { useContext } from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { DarkModeProvider } from "./DarkMode";
+import { DarkModeProvider, DarkModeContext } from './DarkMode';
 import { lightTheme, darkTheme } from './Theme';
-import { DarkModeContext } from "./DarkMode";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 function AppWithTheme() {
+
   return (
-	    <DarkModeProvider>
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+	  <CssBaseline/>
       <App handleDarkModeToggle={toggleDarkMode} />
     </ThemeProvider>
-  </DarkModeProvider>
-
-
   );
 }
-//
-//	      <DarkModeProvider>
-//    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-//      <App/>
-//    </ThemeProvider>
-//    </DarkModeProvider>
-    //<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-root.render(<AppWithTheme />);
+
+root.render(
+  <DarkModeProvider>
+    <React.StrictMode>
+      <AppWithTheme />
+    </React.StrictMode>
+  </DarkModeProvider>
+);

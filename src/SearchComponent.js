@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTheme } from '@mui/material';
 import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from './LetterComponent';
 import './style.css';
@@ -7,6 +8,7 @@ import { credentials } from './credentials';
 const { username, password } = credentials;
 
 const SearchComponent = () => {
+  const theme = useTheme();
   const [showLetterComponent, setShowLetterComponent] = useState(false);
   const [isInputDocked, setIsInputDocked] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -131,15 +133,17 @@ const SearchComponent = () => {
   return (
     <div id='search-engine-wrapper'>
       <OutlinedInput
+
         // variant='outlined'
         id='search-input'
         placeholder='What job are you looking for?'
+ //       label='search'
         type="text"
         style={{
           position: isInputDocked ? 'fixed' : 'relative',
           top: isInputDocked ? 10 : 'auto',
           zIndex: 1000,
-          backgroundColor: 'white',
+	  backgroundColor:theme.palette.background.default,
         }}
         onChange={handleSearchInputChange}
       />
