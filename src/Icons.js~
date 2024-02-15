@@ -1,30 +1,39 @@
 // Icons.js
 import React, { useState, useEffect } from 'react';
 import { lightTheme, darkTheme } from './Theme';
-import Sun from './assets/sun.svg'
-const Icons = () => {
-const [theme, setTheme] = useState(lightTheme);
+import { ReactComponent as Sun } from './assets/sun.svg'
+let darkMode = 0;
 
+const toggleDarkMode = () => {
+    // Add your logic for left icon click
+	if (darkMode == 0){
+		darkMode=1
+	}else{
+		  darkMode=0
+	}
+    console.log('Left icon clicked');
+  };
+
+const Icons = () => {
+	 
   // Handle click events for your icons
   const handleLeftIconClick = () => {
     // Add your logic for left icon click
     console.log('Left icon clicked');
   };
-
   const handleRightIconClick = () => {
-    setTheme((prevTheme) => (prevTheme === lightTheme ? darkTheme : lightTheme));
-    // Add your logic for right icon click
+    // Add your logic for left icon click
     console.log('Right icon clicked');
   };
 
   return (
     <div className="icons-container">
       <div className="icons-left">
-        {/* Left Icon */}
-        <div className="icon" onClick={handleLeftIconClick}>
-          {/* Add your left icon element here */}
-		<img src='./assets/Sun.svg' alt="Left Icon" />
-	  <p>texte!</p>
+        {/* Left Icons */}
+        <div className="icon" onClick={toggleDarkMode}>
+	  <Sun/ >
+	  
+	  <p>Mode sombre</p>
 
         </div>
 
@@ -132,4 +141,5 @@ const [theme, setTheme] = useState(lightTheme);
   );
 };
 
-export default Icons;
+export {Icons,
+        darkMode};

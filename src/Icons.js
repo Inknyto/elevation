@@ -1,39 +1,39 @@
 // Icons.js
 import React, { useState, useEffect } from 'react';
 import { lightTheme, darkTheme } from './Theme';
-import Sun from './assets/sun.svg'
-const Icons = () => {
-const [theme, setTheme] = useState(lightTheme);
+import { ReactComponent as Sun } from './assets/sun.svg'
+let darkMode = 0;
 
+const toggleDarkMode = () => {
+    // Add your logic for left icon click
+	if (darkMode == 0){
+		darkMode=1
+	}else{
+		  darkMode=0
+	}
+    console.log('Left icon clicked');
+  };
+
+const Icons = () => {
+	 
   // Handle click events for your icons
   const handleLeftIconClick = () => {
     // Add your logic for left icon click
     console.log('Left icon clicked');
   };
-
   const handleRightIconClick = () => {
-    setTheme((prevTheme) => (prevTheme === lightTheme ? darkTheme : lightTheme));
-    // Add your logic for right icon click
+    // Add your logic for left icon click
     console.log('Right icon clicked');
   };
 
   return (
     <div className="icons-container">
       <div className="icons-left">
-        {/* Left Icon */}
-        <div className="icon" onClick={handleLeftIconClick}>
-<svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="3" stroke="#632C7F" stroke-width="2" />
-            <path d="M12 5V3" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-            <path d="M12 21V19" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-            <path d="M16.9497 7.05025L18.364 5.63604" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-            <path d="M5.63604 18.364L7.05025 16.9497" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-            <path d="M19 12L21 12" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-            <path d="M3 12L5 12" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-            <path d="M16.9497 16.9497L18.364 18.364" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-            <path d="M5.63604 5.63604L7.05025 7.05025" stroke="#632C7F" stroke-width="2" stroke-linecap="round" />
-          </svg>
-	  <p>texte!</p>
+        {/* Left Icons */}
+        <div className="icon" onClick={toggleDarkMode}>
+	  <Sun/ >
+	  
+	  <p>Mode sombre</p>
 
         </div>
 
@@ -141,4 +141,5 @@ const [theme, setTheme] = useState(lightTheme);
   );
 };
 
-export default Icons;
+export {Icons,
+        darkMode};

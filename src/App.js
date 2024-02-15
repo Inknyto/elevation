@@ -1,6 +1,6 @@
 import React from 'react';
 import {ReactComponent as Logo} from './assets/logo.svg'
-import Icons from './Icons';
+import { Icons } from './Icons';
 import SearchComponent from './SearchComponent';
 import FooterComponent from './FooterComponent';
 

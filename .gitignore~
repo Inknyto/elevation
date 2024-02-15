@@ -3,8 +3,6 @@
 # dependencies
 /node_modules
 /src/credentials.js
-/to_phone
-/to_phone.tar.gz
 /.pnp
 .pnp.js
 

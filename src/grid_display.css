@@ -1,5 +1,0 @@
-.job_result {
-    display: grid;
-    margin-bottom: 20px;
-    grid-template-columns: repeat(2, 1fr);
-}

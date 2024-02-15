@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, Input, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from './LetterComponent';
 import './style.css';
 import { credentials } from './credentials';
@@ -12,7 +12,6 @@ const SearchComponent = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [blurrerVisible, setBlurrerVisible] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
-  const [isFixed, setIsFixed] = useState(false);
   const [letterFormData, setLetterFormData] = useState({
     from: '',
     to: '',
@@ -129,12 +128,6 @@ const SearchComponent = () => {
     };
   }, [isInputDocked]);
 
-
-
-  useEffect(() => {
-  }, []);
-
-
   return (
     <div id='search-engine-wrapper'>
       <OutlinedInput
@@ -208,7 +201,6 @@ const SearchComponent = () => {
 
     </div>
 
-    //     </Typography>
   );
 };
 

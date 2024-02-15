@@ -24,7 +24,7 @@ body {
   width: 170vh; /* Adjust as needed */
 }
 
-/* Icons.css */
+
 .icons-container {
   position: fixed;
   top: 0;
@@ -39,7 +39,7 @@ body {
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  z-index: 999; /* Make sure icons are above everything else */
+  z-index: 999; 
   padding: 10px;
 }
 .icon svg{
@@ -132,6 +132,7 @@ textarea {
 }
 
 .logo{
+	max-width: 100%;
 	border-radius:55px;
 	margin-bottom:20px;
 	margin-top:10px;
