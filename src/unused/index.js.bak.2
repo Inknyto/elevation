@@ -1,0 +1,24 @@
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import { ThemeProvider } from '@mui/material/styles';
+import { DarkModeProvider } from './DarkMode';
+import { lightTheme, darkTheme } from './Theme';
+import { DarkModeContext } from './DarkMode';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+function AppWithTheme() {
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
+
+  return (
+    <DarkModeProvider>
+      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+        <App handleDarkModeToggle={toggleDarkMode} />
+      </ThemeProvider>
+    </DarkModeProvider>
+  );
+}
+
+root.render(<AppWithTheme />);

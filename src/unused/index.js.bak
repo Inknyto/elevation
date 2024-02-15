@@ -11,8 +11,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 function AppWithTheme() {
   return (
 	    <DarkModeProvider>
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <App handleDarkModeToggle={toggleDarkMode} />
+    <ThemeProvider theme={ lightTheme}>
+      <App/>
     </ThemeProvider>
   </DarkModeProvider>
 
