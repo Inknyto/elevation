@@ -1,6 +1,8 @@
 // Icons.js
 import React, { useContext } from 'react';
 import { ReactComponent as Sun } from './assets/sun.svg'
+import { ReactComponent as User } from './assets/user.svg'
+
 import { ReactComponent as Mail } from './assets/mail.svg'
 import { ReactComponent as Entreprises } from './assets/entreprises.svg'
 import { ReactComponent as Map } from './assets/map.svg'
@@ -30,6 +32,10 @@ const Icons = () => {
   const showEntreprises = () => {
     console.log('showEntreprises icon clicked');
   };
+  const openUser = () => {
+    console.log('openUser icon clicked');
+  };
+
   return (
     <div className="icons-container">
       <div className="icons-left">
@@ -73,12 +79,12 @@ const Icons = () => {
 
       <div className="icons-right">
         {/* Right Icon */}
-        <div className="icon" onClick={handleLeftIconClick}>
+        <div className="icon" onClick={openUser}>
 
 
 
-          <p>texte!</p>
-          <Sun />
+          <p>Mon Compte</p>
+          <User />
 
 
         </div>
