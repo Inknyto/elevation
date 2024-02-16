@@ -1,0 +1,13 @@
+1- Put the letter in place 
+2- Add the entreprises view
+3- implement the map(or maybe not)
+4- implement the user authentication 
+5- implement a better logic for fetching the data, plus caching 
+6- 
+7- 
+8- 
+9- 
+10- 
+11- 
+12- 
+13- 

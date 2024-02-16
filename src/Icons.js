@@ -1,7 +1,10 @@
 // Icons.js
-import React, { useState, useEffect, useContext } from 'react';
-import { lightTheme, darkTheme } from './Theme';
+import React, { useContext } from 'react';
 import { ReactComponent as Sun } from './assets/sun.svg'
+import { ReactComponent as Mail } from './assets/mail.svg'
+import { ReactComponent as Entreprises } from './assets/entreprises.svg'
+import { ReactComponent as Map } from './assets/map.svg'
+
 import { DarkModeContext } from "./DarkMode";
 //import { LeftIcons } from 'LeftIcons';
   
@@ -11,14 +14,22 @@ const Icons = () => {
 
   // Handle click events for your icons
   const handleLeftIconClick = () => {
-    // Add your logic for left icon click
     console.log('Left icon clicked');
   };
-  const handleRightIconClick = () => {
-    // Add your logic for left icon click
-    console.log('Right icon clicked');
+  const showMap = () => {
+    console.log('Left icon clicked');
   };
 
+  const handleRightIconClick = () => {
+    console.log('Right icon clicked');
+  };
+  const composeEmail = () => {
+    console.log('composeEmail icon clicked');
+  };
+
+  const showEntreprises = () => {
+    console.log('showEntreprises icon clicked');
+  };
   return (
     <div className="icons-container">
       <div className="icons-left">
@@ -26,34 +37,34 @@ const Icons = () => {
         <div className="icon" onClick={toggleDarkMode}>
           <Sun />
 
-          <p>      {darkMode ? "Light Mode" : "Dark Mode"}</p>
+          <p>      {darkMode ? "Mode Clair" : "Mode Sombre"}</p>
 
         </div>
 
-        <div className="icon" onClick={handleRightIconClick}>
+        <div className="icon" onClick={composeEmail}>
 
-          <Sun />
+          <Mail />
 
-          <p>      {darkMode ? "Light Mode" : "Dark Mode"}</p>
-
-
-        </div>
-
-        <div className="icon" onClick={handleLeftIconClick}>
-
-          <Sun />
-
-          <p>      {darkMode ? "Light Mode" : "Dark Mode"}</p>
-
+          <p>E-mail</p>
 
 
         </div>
 
-        <div className="icon" onClick={handleRightIconClick}>
+        <div className="icon" onClick={showEntreprises}>
 
-          <Sun />
+          <Entreprises />
 
-          <p>      {darkMode ? "Light Mode" : "Dark Mode"}</p>
+          <p>Entreprises</p>
+
+
+
+        </div>
+
+        <div className="icon" onClick={showMap}>
+
+          <Map />
+
+          <p>Afficher la carte</p>
 
 
 

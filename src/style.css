@@ -43,9 +43,8 @@ body {
   padding: 10px;
 }
 .icon svg{
-
-	padding: 5px;
-	border-radius:50px;
+  padding: 5px;
+  border-radius:50px;
   transition: all 0.3s ease 0s;
 }
 .icon:hover svg{
