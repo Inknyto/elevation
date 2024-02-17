@@ -3,6 +3,7 @@ import { useSearchResults, useSelectedResult } from './SearchRequest';
 import { useTheme } from '@mui/material';
 import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from '../Letter/LetterComponent';
+import './SearchComponent.css';
 
 
 const SearchComponent = () => {
@@ -10,7 +11,8 @@ const SearchComponent = () => {
   const [showLetterComponent, setShowLetterComponent] = useState(false);
   const [isInputDocked, setIsInputDocked] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [query, setQuery] = useState('');  // Assuming you have a state for query
+  const [query, setQuery] = useState('');
+
   const [id, setId] = useState('');  // Assuming you have a state for query
 	
   const cachedSearchResults = useSearchResults(query);
@@ -24,11 +26,17 @@ const SearchComponent = () => {
     body: '',
   });
 
-//  const handleSearchInputChange = async (event) => j{
-//    // Use cachedSearchResults directly
-//    setSearchResults(cachedSearchResults);
-//  };
-//
+  const handleSearchInputChange = async (event) => {
+    // Use cachedSearchResults directly
+    setQuery(event.target.value);
+    // setSearchResults(cachedSearchResults);
+	//data.hits.hits.map(offre => ({ id: offre._id, ...offre._source }))
+// console.log(Object.keys(cachedSearchResults))
+console.log(cachedSearchResults)
+// console.log(.hits.hits.map(offre => ({ id: offre._id, ...offre._source })))
+
+  };
+
 //  const showMore = async (id) => {
 //    // Use cachedSelectedResult directly
 //    setSelectedResult(cachedSelectedResult);
@@ -116,7 +124,8 @@ const SearchComponent = () => {
         }}
         // onChange={useSearchResults}
 	      value={query}
-	  onChange={(e) => setQuery(e.target.value)}
+	  // onChange={(e) => setQuery(e.target.value)}
+	  onChange={handleSearchInputChange}
       />
 
       <div id='search-results' 

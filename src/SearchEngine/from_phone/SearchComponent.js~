@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchResults, useSelectedResult } from './SearchRequest';
-import { useTheme } from '@mui/material';
-import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
-import LetterComponent from '../Letter/LetterComponent';
-import './SearchComponent.css';
+import React, { useRef, useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, Input, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
+import LetterComponent from './LetterComponent';
+import './style.css';
+import { credentials } from './credentials';
 
+const { username, password } = credentials;
 
 const SearchComponent = () => {
-  const theme = useTheme();
   const [showLetterComponent, setShowLetterComponent] = useState(false);
   const [isInputDocked, setIsInputDocked] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [query, setQuery] = useState('');
-
-  const [id, setId] = useState('');  // Assuming you have a state for query
-	
-  const cachedSearchResults = useSearchResults(query);
-  const cachedSelectedResult = useSelectedResult(id);
   const [blurrerVisible, setBlurrerVisible] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
+  const [isFixed, setIsFixed] = useState(false);
   const [letterFormData, setLetterFormData] = useState({
     from: '',
     to: '',
@@ -27,21 +21,49 @@ const SearchComponent = () => {
   });
 
   const handleSearchInputChange = async (event) => {
-    // Use cachedSearchResults directly
-    setQuery(event.target.value);
-    // setSearchResults(cachedSearchResults);
-	//data.hits.hits.map(offre => ({ id: offre._id, ...offre._source }))
-// console.log(Object.keys(cachedSearchResults))
-console.log(cachedSearchResults)
-// console.log(.hits.hits.map(offre => ({ id: offre._id, ...offre._source })))
+    const query = event.target.value;
 
+    try {
+      const response = await fetch(`http://192.168.42.115:9200/software_jobs/_search?q=*${query}*&size=1000`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSearchResults(data.hits.hits.map(offre => ({ id: offre._id, ...offre._source })));
+    } catch (error) {
+      console.error('Error fetching data from Elasticsearch:', error);
+    }
   };
 
-//  const showMore = async (id) => {
-//    // Use cachedSelectedResult directly
-//    setSelectedResult(cachedSelectedResult);
-//    setBlurrerVisible(true);
-//  }; 
+  const showMore = async (id) => {
+    try {
+      const response = await fetch(`http://192.168.42.115:9200/software_jobs/_doc/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSelectedResult(data._source);
+      setBlurrerVisible(true);
+    } catch (error) {
+      console.error('Error fetching data from Elasticsearch:', error);
+    }
+  };
 
   const closeBlurrer = () => {
     setBlurrerVisible(false);
@@ -107,25 +129,26 @@ console.log(cachedSearchResults)
     };
   }, [isInputDocked]);
 
+
+
+  useEffect(() => {
+  }, []);
+
+
   return (
     <div id='search-engine-wrapper'>
       <OutlinedInput
-
         // variant='outlined'
         id='search-input'
         placeholder='What job are you looking for?'
- //       label='search'
         type="text"
         style={{
           position: isInputDocked ? 'fixed' : 'relative',
           top: isInputDocked ? 10 : 'auto',
           zIndex: 1000,
-	  backgroundColor:theme.palette.background.default,
+          backgroundColor: 'white',
         }}
-        // onChange={useSearchResults}
-	      value={query}
-	  // onChange={(e) => setQuery(e.target.value)}
-	  onChange={handleSearchInputChange}
+        onChange={handleSearchInputChange}
       />
 
       <div id='search-results' 
@@ -143,8 +166,7 @@ console.log(cachedSearchResults)
             <Typography variant="body2">Via: {result.via}</Typography>
             {/* Uncomment the following line if you want to display the description */}
             {/* <Typography variant="body2">Description: {result.description}</Typography> */}
-            {/* // <Button variant="outlined" onClick={() => setSelectedResult(result.id)}> */}
-	      <Button variant="outlined" onClick={() => setSelectedResult(cachedSelectedResult)}>
+            <Button variant="outlined" onClick={() => showMore(result.id)}>
               More
             </Button>
 		</div>
@@ -186,6 +208,7 @@ console.log(cachedSearchResults)
 
     </div>
 
+    //     </Typography>
   );
 };
 
