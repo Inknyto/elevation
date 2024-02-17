@@ -2,12 +2,13 @@
 import React, { useContext } from 'react';
 import { ReactComponent as Sun } from './assets/sun.svg'
 import { ReactComponent as User } from './assets/user.svg'
+import './Icons.css';
 
 import { ReactComponent as Mail } from './assets/mail.svg'
 import { ReactComponent as Entreprises } from './assets/entreprises.svg'
 import { ReactComponent as Map } from './assets/map.svg'
 
-import { DarkModeContext } from "./DarkMode";
+import { DarkModeContext } from "../Theme/DarkMode";
 //import { LeftIcons } from 'LeftIcons';
   
 //import { RightIcons } from 'RightIcons'; 

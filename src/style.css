@@ -15,48 +15,6 @@ body {
   flex-direction: column;
   align-items: center;
 }
-#search-engine-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  justify-content: center;
-  width: 170vh; /* Adjust as needed */
-}
-
-
-.icons-container {
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-}
-
-.icon {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  z-index: 999; 
-  padding: 10px;
-}
-.icon svg{
-  padding: 5px;
-  border-radius:50px;
-  transition: all 0.3s ease 0s;
-}
-.icon:hover svg{
-  box-shadow: 0px 15px 20px #0000005c;
-  transform: translateY(-7px);
-}
-.icons-right{
-display: flex;
-flex-direction: column;
-align-items:flex-end;
-
-}
 
 .job_skills{
   display:block;
@@ -124,16 +82,6 @@ textarea {
   min-height: 200px;
 }
 
-#search-input {
-  width: 50vw;
-  margin: 10px;
-  padding: 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  z-index: 2;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-}
 
 .logo{
 	max-width: 100%;
@@ -200,16 +148,6 @@ textarea {
   margin: 20px;
 }
 
-#search-results {
-  width: 80%;
-  padding: 30px;
-  border-radius: 5px;
-  margin-top: 50px;
-  z-index: 1;
-  max-height: 180vh;
-  overflow-y: auto;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-}
 
 button {
   width: 100%;

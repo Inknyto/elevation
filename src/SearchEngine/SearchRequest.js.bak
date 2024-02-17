@@ -1,0 +1,50 @@
+// apiHooks.js
+import { useMemo } from 'react';
+
+export const useSearchResults = (query, username, password) => {
+  return useMemo(async () => {
+    try {
+      const response = await fetch(`http://localhost:9200/software_jobs/_search?q=*${query}*&size=1000`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.hits.hits.map(offre => ({ id: offre._id, ...offre._source }));
+    } catch (error) {
+      console.error('Error fetching data from Elasticsearch:', error);
+      return [];
+    }
+  }, [query, username, password]);
+};
+
+export const useSelectedResult = (id, username, password) => {
+  return useMemo(async () => {
+    try {
+      const response = await fetch(`http://localhost:9200/software_jobs/_doc/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data._source;
+    } catch (error) {
+      console.error('Error fetching data from Elasticsearch:', error);
+      return null;
+    }
+  }, [id, username, password]);
+};

@@ -1,0 +1,20 @@
+
+#search-engine-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: center;
+  width: 170vh; /* Adjust as needed */
+}
+
+#search-input {
+  width: 50vw;
+  margin: 10px;
+  padding: 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}

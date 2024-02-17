@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
+import './style.css';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { DarkModeProvider, DarkModeContext } from './DarkMode';
-import { lightTheme, darkTheme } from './Theme';
+import { DarkModeProvider, DarkModeContext } from './Theme/DarkMode';
+import { lightTheme, darkTheme } from './Theme/Theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

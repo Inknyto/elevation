@@ -1,0 +1,187 @@
+tree src
+.
+├── App.js
+├── App.js~
+├── App.test.js
+├── Footer
+│   ├── FooterComponent.js
+│   ├── footer.css
+│   └── footer.css~
+├── Icons
+│   ├── assets
+│   │   ├── entreprises.svg
+│   │   ├── entreprises.svg~
+│   │   ├── growlogo.py
+│   │   ├── growlogo.py~
+│   │   ├── logo.svg
+│   │   ├── logo.svg~
+│   │   ├── logo.svg.bak
+│   │   ├── mail.svg
+│   │   ├── mail.svg~
+│   │   ├── map.svg
+│   │   ├── map.svg~
+│   │   ├── sun.svg
+│   │   ├── user.svg
+│   │   └── user.svg~
+│   ├── Icons.css
+│   ├── Icons.js
+│   └── Icons.js~
+├── index.js
+├── index.js~
+├── JobMap.js
+├── Letter
+│   ├── LetterComponent.js
+│   ├── LetterComponent.js~
+│   └── LetterComponent.js.bak.old
+├── manage_data.js
+├── reportWebVitals.js
+├── SearchEngine
+│   ├── credentials.js
+│   ├── SearchComponent.css
+│   ├── SearchComponent.js
+│   ├── SearchComponent.js~
+│   ├── SearchComponent.js.bak
+│   ├── SearchEngine.css~
+│   ├── SearchRequest.js
+│   ├── SearchRequest.js~
+│   └── SearchRequest.js.bak
+├── setupTests.js
+├── src_tree.txt
+├── style.css
+├── style.css~
+├── test-unused
+├── Theme
+│   ├── DarkMode.js
+│   ├── DarkMode.js~
+│   ├── Theme.js
+│   └── Theme.js~
+└── unused
+    ├── App.css.old
+    ├── Banner.svg
+    ├── box-shadow.css
+    ├── DarkModeToggle.js
+    ├── DarkModeToggle.js~
+    ├── Elevation.jpg
+    ├── focus_handler.js
+    ├── FooterComponent.js.bak
+    ├── grid_display.css
+    ├── index.css
+    ├── index.js.bak
+    ├── index.js.bak.2
+    ├── Logo.js
+    ├── Logo.js.bak
+    ├── logo.svg
+    ├── old_logo.svg
+    ├── other-box-shadow.css
+    ├── resultfunction.js
+    ├── result_with_skills.js
+    ├── result_with_skills.js~
+    ├── SearchComponent.js.bak
+    ├── skills_style.css
+    ├── src.bak
+    │   ├── App.css
+    │   ├── App.js
+    │   ├── App.test.js
+    │   ├── index.css
+    │   ├── index.js
+    │   ├── logo.svg
+    │   ├── reportWebVitals.js
+    │   └── setupTests.js
+    ├── style.css.bak
+    ├── Theme.js.bak
+    └── toggleDarkMode.js
+
+10 directories, 81 files
+ 
+find src
+.
+./style.css~
+./Footer
+./Footer/footer.css
+./Footer/footer.css~
+./Footer/FooterComponent.js
+./src_structure.txt
+./index.js
+./Icons
+./Icons/Icons.css
+./Icons/Icons.js
+./Icons/assets
+./Icons/assets/map.svg
+./Icons/assets/entreprises.svg~
+./Icons/assets/growlogo.py~
+./Icons/assets/growlogo.py
+./Icons/assets/entreprises.svg
+./Icons/assets/sun.svg
+./Icons/assets/logo.svg
+./Icons/assets/user.svg
+./Icons/assets/mail.svg~
+./Icons/assets/mail.svg
+./Icons/assets/logo.svg~
+./Icons/assets/map.svg~
+./Icons/assets/logo.svg.bak
+./Icons/assets/user.svg~
+./Icons/Icons.js~
+./Theme
+./Theme/DarkMode.js
+./Theme/Theme.js~
+./Theme/Theme.js
+./Theme/DarkMode.js~
+./manage_data.js
+./style.css
+./Letter
+./Letter/LetterComponent.js~
+./Letter/LetterComponent.js.bak.old
+./Letter/LetterComponent.js
+./App.test.js
+./index.js~
+./test-unused
+./setupTests.js
+./reportWebVitals.js
+./SearchEngine
+./SearchEngine/SearchRequest.js~
+./SearchEngine/SearchRequest.js
+./SearchEngine/SearchComponent.js
+./SearchEngine/SearchComponent.css
+./SearchEngine/SearchRequest.js.bak
+./SearchEngine/SearchComponent.js.bak
+./SearchEngine/SearchComponent.js~
+./SearchEngine/SearchEngine.css~
+./SearchEngine/credentials.js
+./App.js~
+./JobMap.js
+./App.js
+./unused
+./unused/skills_style.css
+./unused/grid_display.css
+./unused/other-box-shadow.css
+./unused/index.js.bak
+./unused/App.css.old
+./unused/result_with_skills.js~
+./unused/Banner.svg
+./unused/src.bak
+./unused/src.bak/App.css
+./unused/src.bak/index.js
+./unused/src.bak/logo.svg
+./unused/src.bak/App.test.js
+./unused/src.bak/setupTests.js
+./unused/src.bak/reportWebVitals.js
+./unused/src.bak/index.css
+./unused/src.bak/App.js
+./unused/FooterComponent.js.bak
+./unused/Logo.js.bak
+./unused/Theme.js.bak
+./unused/result_with_skills.js
+./unused/logo.svg
+./unused/index.js.bak.2
+./unused/DarkModeToggle.js~
+./unused/style.css.bak
+./unused/SearchComponent.js.bak
+./unused/DarkModeToggle.js
+./unused/Logo.js
+./unused/resultfunction.js
+./unused/index.css
+./unused/old_logo.svg
+./unused/toggleDarkMode.js
+./unused/box-shadow.css
+./unused/focus_handler.js
+./unused/Elevation.jpg
