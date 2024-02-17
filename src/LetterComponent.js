@@ -1,6 +1,5 @@
 // LetterComponent.js
 import React from 'react';
-
 const LetterComponent = ({
   onSendLetter,
   onRemoveLetterDiv,
@@ -12,7 +11,7 @@ const LetterComponent = ({
   };
 
   return (
-    <div>
+    <div id='letterDiv'>
       <h2>Compose Letter</h2>
 
       <input

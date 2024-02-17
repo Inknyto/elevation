@@ -92,7 +92,7 @@ const Icons = () => {
         {/* Right Icon */}
         <div className="icon" onClick={handleRightIconClick}>
 
-          <p>texte!</p>
+          <p>Offres enregistrées</p>
 
 
 
