@@ -8,7 +8,7 @@ import './JobMap.css'; // Import a CSS file for styling
 const JobMap = ({ jobs, onClose }) => {
   const [query, setQuery] = useState('');
   const cachedSearchResults = useSearchResults(query);
-
+// the actual coordinates for centering the map are given below:
   return (
     <div className="job-map-overlay">
       <div className="job-map-container">
@@ -16,8 +16,8 @@ const JobMap = ({ jobs, onClose }) => {
           Close
         </button>
         <MapContainer
-          center={[51.505, -0.09]}
-          zoom={13}
+          center={[14.7175936, -17.3618599]}
+          zoom={11}
           style={{ height: '500px', width: '100%' }}
           scrollWheelZoom={false}
         >

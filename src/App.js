@@ -6,6 +6,7 @@ import JobMap from './Map/JobMap'; // Import the Map component
 import FooterComponent from './Footer/FooterComponent';
 import LetterComponent from './Letter/LetterComponent';
 import LoginComponent from './Login/LoginComponent';
+import EntreprisesComponent from './Entreprises/EntreprisesComponent';
 
 const App = () => {
   const [currentView, setCurrentView] = useState('search');
@@ -23,8 +24,9 @@ const App = () => {
       id: 1,
       title: "Software Engineer",
       company_name: "Acme Inc.",
-      latitude: 51.505,
-      longitude: -0.09,
+// The marker puts a mark where the job is located
+      latitude: 14.7175936,
+      longitude: -17.361859914,
       description: "Develop and maintain software applications...",
     },
     // Add more job objects here
@@ -41,7 +43,8 @@ const App = () => {
         return 	<LetterComponent />;
       case 'login':
         return 	<LoginComponent />;
-
+      case 'entreprises':
+        return 	<EntreprisesComponent />;
 
 
       default:

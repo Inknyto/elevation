@@ -44,6 +44,8 @@ const Icons = ({ onIconClick }) => {
   };
 
   const showEntreprises = () => {
+    onIconClick('entreprises');
+
     console.log('showEntreprises icon clicked');
   };
   const openUser = () => {

@@ -11,9 +11,10 @@
   position: relative;
   width: 60%; /* Adjust as needed */
   max-width: 800px; /* Maximum width for the map container */
-  height: 60%; /* Adjust as needed */
-  max-height: 600px; /* Maximum height for the map container */
+  height: 100%; /* Adjust as needed */
+  max-height: 1000px; /* Maximum height for the map container */
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .close-button {
