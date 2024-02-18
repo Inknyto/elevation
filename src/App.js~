@@ -60,7 +60,7 @@ const App = () => {
   return (
     <div className="app">
       <Logo />
-      <Icons onIconClick={handleIconClick} currentView={currentView} />
+      <Icons onIconClick={handleIconClick} />
 
       {/* Conditionally render the current view based on the switch statement */}
       {renderCurrentView()}

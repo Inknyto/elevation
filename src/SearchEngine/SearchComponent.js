@@ -50,7 +50,7 @@ handleSearchInputChange({ 'target' : initislSearch })
 
 const showMore = async (id) => {
   try {
-    setId(id);
+ //   setId(id);
 	  // console.log('The Id: ',id)
   // const cachedSelectedResult = fetchSelectedResult(id);
 	  // console.log(cachedSelectedResult)

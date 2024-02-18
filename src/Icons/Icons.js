@@ -1,12 +1,17 @@
 // Icons.js
 import React, { useContext } from 'react';
 import { ReactComponent as Sun } from './assets/sun.svg'
+import { ReactComponent as Moon} from './assets/moon.svg'
+
 import { ReactComponent as User } from './assets/user.svg'
 import './Icons.css';
 
 import { ReactComponent as Mail } from './assets/mail.svg'
 import { ReactComponent as Entreprises } from './assets/entreprises.svg'
 import { ReactComponent as Map } from './assets/map.svg'
+import { ReactComponent as Search } from './assets/search.svg'
+
+import { ReactComponent as Saved } from './assets/saved.svg'
 
 import { DarkModeContext } from "../Theme/DarkMode";
 //import { LeftIcons } from 'LeftIcons';
@@ -61,7 +66,7 @@ const Icons = ({ onIconClick }) => {
       <div className="icons-left">
         {/* Left Icons */}
         <div className="icon" onClick={toggleDarkMode}>
-          <Sun />
+         {darkMode ?  <Sun /> :<Moon />}
 
           <p> {darkMode ? "Mode Clair" : "Mode Sombre"}</p>
 
@@ -107,7 +112,7 @@ const Icons = ({ onIconClick }) => {
 
           <p>Offres enregistrées</p>
 
-          <Sun />
+          <Saved />
 
         </div>
 
@@ -124,7 +129,7 @@ const Icons = ({ onIconClick }) => {
 
           <p>Rechercher</p>
 
-          <Sun />
+          <Search />
 
         </div>
       </div>

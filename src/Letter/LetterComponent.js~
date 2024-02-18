@@ -1,4 +1,5 @@
 // LetterComponent.js
+import { Card, CardContent, CardHeader, CardActions, Typography, OutlinedInput } from '@mui/material';
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -15,7 +16,7 @@ const LetterComponent = ({
   };
 
   return (
-    <div id='letterDiv'>
+    <Card variant='outlined' id='letterDiv'>
       <h2>Compose Letter</h2>
 
       <TextField
@@ -53,7 +54,7 @@ const LetterComponent = ({
       <Button variant="contained" color="secondary" onClick={onRemoveLetterDiv}>
         Cancel
       </Button>
-    </div>
+    </Card>
   );
 };
 

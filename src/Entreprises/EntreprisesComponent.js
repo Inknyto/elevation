@@ -96,19 +96,19 @@ const showMore = async (id) => {
   };
 
 
-  const CardComponent = ({ title, company_name, location, via, description, onCloseClick }) => {
+  const CardComponent = ({ Nom, Type, Region, Arrondissement, Tél, onCloseClick }) => {
     return (
       <div className="modal">
         <Card variant="outlined" className="job-card">
           <CardContent>
-            <CardHeader title={title} subheader={`${company_name}, ${location}`} />
+            <CardHeader Nom={Nom} subheader={`${Type}, ${Region}`} />
             <Typography component="span" >
               <Typography component="span" variant="body2" color="textSecondary">
-                <strong>Via:</strong> {via}
+                <strong>Arrondissement:</strong> {Arrondissement}
               </Typography><br />
               <div className="scrollable-text">
                 <Typography component="span" variant="body2" color="textSecondary">
-                  {description}
+                  {Tél}
                 </Typography>
               </div>
             </Typography>
@@ -176,12 +176,12 @@ const showMore = async (id) => {
           <div className='result-div' key={result.id}>
 		<div className='result-data'>
             {/* Display entreprises results */}
-            <Typography variant="h6">Title: {result.title}</Typography>
-            <Typography variant="body1">Company name: {result.company_name}</Typography>
-            <Typography variant="body1">Location: {result.location}</Typography>
-            <Typography variant="body2">Via: {result.via}</Typography>
-            {/* Uncomment the following line if you want to display the description */}
-            {/* <Typography variant="body2">Description: {result.description}</Typography> */}
+            <Typography variant="h6">Nom: {result.Nom}</Typography>
+            <Typography variant="body1">Company name: {result.Type}</Typography>
+            <Typography variant="body1">Region: {result.Region}</Typography>
+            <Typography variant="body2">Arrondissement: {result.Arrondissement}</Typography>
+            {/* Uncomment the following line if you want to display the Tél */}
+            {/* <Typography variant="body2">Tél: {result.Tél}</Typography> */}
             {/* // <Button variant="outlined" onClick={() => setSelectedResult(result.id)}> */}
 	      <Button variant="outlined" onClick={() => showMore(result.id)}>
               More
@@ -190,28 +190,17 @@ const showMore = async (id) => {
             <div key={result.id+'skills'} className="job_skills">
               <h3>Required_skills:</h3>
 
-              {Object.entries(result.skills).map(([category, skills]) => (
-                <div key={category} className="skill_category">
-                  <span className="category_title">{category}</span>
-
-                  {skills.map((skill, skillIndex) => (
-                    <span key={skillIndex} className="skill">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              ))}
             </div>
           </div>
         ))}
       </div>
       {blurrerVisible && (
         <CardComponent
-          title={selectedResult?.title}
-          company_name={selectedResult?.company_name}
-          location={selectedResult?.location}
-          via={selectedResult?.via}
-          description={selectedResult?.description}
+          Nom={selectedResult?.Nom}
+          Type={selectedResult?.Type}
+          Region={selectedResult?.Region}
+          Arrondissement={selectedResult?.Arrondissement}
+          Tél={selectedResult?.Tél}
         />
       )}
       {showLetterComponent && (

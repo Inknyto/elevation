@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useSearchResults } from '../SearchEngine/SearchRequest';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css"
-import './JobMap.css'; // Import a CSS file for styling
+// import './JobMap.css'; // Import a CSS file for styling
 
+import { ReactComponent as JobIcon } from '../Icons/assets/sun.svg';
 const JobMap = ({ jobs, onClose }) => {
   const [query, setQuery] = useState('');
   const cachedSearchResults = useSearchResults(query);
@@ -26,7 +27,7 @@ const JobMap = ({ jobs, onClose }) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {jobs.map((job) => (
-            <Marker key={job.id} position={[job.latitude, job.longitude]}>
+            <Marker  key={job.id} position={[job.latitude, job.longitude]}>
               <Popup>
                 <strong>{job.title}</strong> <br />
                 {job.company_name}, {job.location} <br />

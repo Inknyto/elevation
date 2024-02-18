@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchResults, fetchSelectedResult } from './SearchRequest';
+import { useEntreprisesResults, fetchSelectedResult } from './EntreprisesRequest';
 import { useTheme } from '@mui/material';
 import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from '../Letter/LetterComponent';
-import './SearchComponent.css';
+import './EntreprisesComponent.css';
 
 
-const SearchComponent = () => {
+const EntreprisesComponent = () => {
   const theme = useTheme();
   const [showLetterComponent, setShowLetterComponent] = useState(false);
 
   const [isInputDocked, setIsInputDocked] = useState(false);
 
-  const [searchResults, setSearchResults] = useState([]);
+  const [entreprisesResults, setEntreprisesResults] = useState([]);
   const [selectedResult, setSelectedResult] = useState(null);
 
   const [query, setQuery] = useState('');
   const [id, setId] = useState(''); 
 	
-  const cachedSearchResults = useSearchResults(query);
+  const cachedEntreprisesResults = useEntreprisesResults(query);
 // No caching for the selected result
 //  const cachedSelectedResult = useSelectedResult(id);
 
@@ -31,12 +31,12 @@ const SearchComponent = () => {
     body: '',
   });
 
-  const handleSearchInputChange = async (event) => {
-    // Use cachedSearchResults directly
+  const handleEntreprisesInputChange = async (event) => {
+    // Use cachedEntreprisesResults directly
     setQuery(event.target.value);
-    const resolvedValue = await cachedSearchResults;
-    // setSearchResults(cachedSearchResults);
-    setSearchResults(resolvedValue);
+    const resolvedValue = await cachedEntreprisesResults;
+    // setEntreprisesResults(cachedEntreprisesResults);
+    setEntreprisesResults(resolvedValue);
     // console.log(resolvedValue)
 	  // logs the array of jobs data
   };
@@ -44,8 +44,8 @@ const SearchComponent = () => {
   useEffect(() => {
     // This code will be executed when the component is mounted
     // setQuery('');
-	const initislSearch = '';
-handleSearchInputChange({ 'target' : initislSearch })
+	const initislEntreprises = '';
+handleEntreprisesInputChange({ 'target' : initislEntreprises })
   }, []); // The empty dependency array ensures that this effect runs only once, equivalent to componentDidMount
 
 const showMore = async (id) => {
@@ -96,19 +96,19 @@ const showMore = async (id) => {
   };
 
 
-  const CardComponent = ({ title, company_name, location, via, description, onCloseClick }) => {
+  const CardComponent = ({ Nom, Type, Region, Arrondissement, Tél, onCloseClick }) => {
     return (
       <div className="modal">
         <Card variant="outlined" className="job-card">
           <CardContent>
-            <CardHeader title={title} subheader={`${company_name}, ${location}`} />
+            <CardHeader Nom={Nom} subheader={`${Type}, ${Region}`} />
             <Typography component="span" >
               <Typography component="span" variant="body2" color="textSecondary">
-                <strong>Via:</strong> {via}
+                <strong>Arrondissement:</strong> {Arrondissement}
               </Typography><br />
               <div className="scrollable-text">
                 <Typography component="span" variant="body2" color="textSecondary">
-                  {description}
+                  {Tél}
                 </Typography>
               </div>
             </Typography>
@@ -147,13 +147,13 @@ const showMore = async (id) => {
   }, [isInputDocked]);
 
   return (
-    <div id='search-engine-wrapper'>
+    <div id='entreprises-engine-wrapper'>
       <OutlinedInput
 
         // variant='outlined'
-        id='search-input'
+        id='entreprises-input'
         placeholder='What job are you looking for?'
- //       label='search'
+ //       label='entreprises'
         type="text"
         style={{
           position: isInputDocked ? 'fixed' : 'relative',
@@ -161,27 +161,27 @@ const showMore = async (id) => {
           zIndex: 1000,
 	  backgroundColor:theme.palette.background.default,
         }}
-        // onChange={useSearchResults}
+        // onChange={useEntreprisesResults}
 	      value={query}
 	  // onChange={(e) => setQuery(e.target.value)}
-	  onChange={handleSearchInputChange}
+	  onChange={handleEntreprisesInputChange}
       />
 
-      <div id='search-results' 
+      <div id='entreprises-results' 
         style={{
           marginTop: isInputDocked ? '21vh' : '25px',
 	}}
 	  >
-        {searchResults.map(result => (
+        {entreprisesResults.map(result => (
           <div className='result-div' key={result.id}>
 		<div className='result-data'>
-            {/* Display search results */}
-            <Typography variant="h6">Title: {result.title}</Typography>
-            <Typography variant="body1">Company name: {result.company_name}</Typography>
-            <Typography variant="body1">Location: {result.location}</Typography>
-            <Typography variant="body2">Via: {result.via}</Typography>
-            {/* Uncomment the following line if you want to display the description */}
-            {/* <Typography variant="body2">Description: {result.description}</Typography> */}
+            {/* Display entreprises results */}
+            <Typography variant="h6">Nom: {result.Nom}</Typography>
+            <Typography variant="body1">Company name: {result.Type}</Typography>
+            <Typography variant="body1">Region: {result.Region}</Typography>
+            <Typography variant="body2">Arrondissement: {result.Arrondissement}</Typography>
+            {/* Uncomment the following line if you want to display the Tél */}
+            {/* <Typography variant="body2">Tél: {result.Tél}</Typography> */}
             {/* // <Button variant="outlined" onClick={() => setSelectedResult(result.id)}> */}
 	      <Button variant="outlined" onClick={() => showMore(result.id)}>
               More
@@ -190,28 +190,17 @@ const showMore = async (id) => {
             <div key={result.id+'skills'} className="job_skills">
               <h3>Required_skills:</h3>
 
-              {Object.entries(result.skills).map(([category, skills]) => (
-                <div key={category} className="skill_category">
-                  <span className="category_title">{category}</span>
-
-                  {skills.map((skill, skillIndex) => (
-                    <span key={skillIndex} className="skill">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              ))}
             </div>
           </div>
         ))}
       </div>
       {blurrerVisible && (
         <CardComponent
-          title={selectedResult?.title}
-          company_name={selectedResult?.company_name}
-          location={selectedResult?.location}
-          via={selectedResult?.via}
-          description={selectedResult?.description}
+          Nom={selectedResult?.Nom}
+          Type={selectedResult?.Type}
+          Region={selectedResult?.Region}
+          Arrondissement={selectedResult?.Arrondissement}
+          Tél={selectedResult?.Tél}
         />
       )}
       {showLetterComponent && (
@@ -228,4 +217,4 @@ const showMore = async (id) => {
   );
 };
 
-export default SearchComponent;
+export default EntreprisesComponent;
