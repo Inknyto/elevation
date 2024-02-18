@@ -6,7 +6,10 @@
   align-items: center;
   justify-content: center;
 }
+.job-map-dark-mode{
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 
+}
 .job-map-container {
   position: relative;
   width: 60%; /* Adjust as needed */
