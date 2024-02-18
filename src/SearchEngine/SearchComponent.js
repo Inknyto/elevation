@@ -41,6 +41,13 @@ const SearchComponent = () => {
 	  // logs the array of jobs data
   };
 
+  useEffect(() => {
+    // This code will be executed when the component is mounted
+    // setQuery('');
+	const initislSearch = '';
+handleSearchInputChange({ 'target' : initislSearch })
+  }, []); // The empty dependency array ensures that this effect runs only once, equivalent to componentDidMount
+
 const showMore = async (id) => {
   try {
     setId(id);
