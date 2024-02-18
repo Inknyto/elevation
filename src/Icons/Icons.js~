@@ -19,10 +19,15 @@ const Icons = ({ onIconClick }) => {
   const handleLeftIconClick = () => {
     console.log('Left icon clicked');
   };
-  const toggleMap = (currentView) => {
+  const showMap = (currentView) => {
    // write the logic for changing the view 
     onIconClick('map');
     console.log('Map icon clicked');
+  };
+
+  const showEmail = () => {
+    onIconClick('letter');
+    console.log('showEmail icon clicked');
   };
 
 // Okay, this one might be a little tricky
@@ -37,14 +42,15 @@ const Icons = ({ onIconClick }) => {
   const handleRightIconClick = () => {
     console.log('Right icon clicked');
   };
-  const composeEmail = () => {
-    console.log('composeEmail icon clicked');
-  };
 
   const showEntreprises = () => {
     console.log('showEntreprises icon clicked');
   };
   const openUser = () => {
+
+
+    onIconClick('login');
+
     console.log('openUser icon clicked');
   };
 
@@ -59,7 +65,7 @@ const Icons = ({ onIconClick }) => {
 
         </div>
 
-        <div className="icon" onClick={composeEmail}>
+        <div className="icon" onClick={showEmail}>
 
           <Mail />
 
@@ -76,7 +82,7 @@ const Icons = ({ onIconClick }) => {
 
         </div>
 
-        <div className="icon" onClick={toggleMap}>
+        <div className="icon" onClick={showMap}>
 
           <Map />
 

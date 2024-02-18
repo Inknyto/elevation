@@ -4,10 +4,19 @@ import { Icons } from './Icons/Icons';
 import SearchComponent from './SearchEngine/SearchComponent';
 import JobMap from './Map/JobMap'; // Import the Map component
 import FooterComponent from './Footer/FooterComponent';
+import LetterComponent from './Letter/LetterComponent';
+import LoginComponent from './Login/LoginComponent';
 
 const App = () => {
   const [currentView, setCurrentView] = useState('search');
   // const [previousView, setPreviousView] = useState('');
+
+  const handleLogin = (loginData) => {
+	
+    // Perform authentication logic here
+    console.log('Login data:', loginData);
+    // You can send a request to your authentication server or handle the logic as needed
+  };
 
   const jobs = [
     {
@@ -28,6 +37,13 @@ const App = () => {
       case 'map':
         return <JobMap jobs={jobs} />;
       // Add more cases for other views as needed
+      case 'letter':
+        return 	<LetterComponent />;
+      case 'login':
+        return 	<LoginComponent />;
+
+
+
       default:
         return null;
     }

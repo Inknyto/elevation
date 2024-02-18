@@ -1,0 +1,10 @@
+
+#letterDiv {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

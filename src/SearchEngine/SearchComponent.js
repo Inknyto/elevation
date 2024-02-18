@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchResults, useSelectedResult } from './SearchRequest';
+import { useSearchResults, fetchSelectedResult } from './SearchRequest';
 import { useTheme } from '@mui/material';
 import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from '../Letter/LetterComponent';
@@ -19,7 +19,8 @@ const SearchComponent = () => {
   const [id, setId] = useState(''); 
 	
   const cachedSearchResults = useSearchResults(query);
-  const cachedSelectedResult = useSelectedResult(id);
+// No caching for the selected result
+//  const cachedSelectedResult = useSelectedResult(id);
 
   const [blurrerVisible, setBlurrerVisible] = useState(false);
 
@@ -43,19 +44,24 @@ const SearchComponent = () => {
 const showMore = async (id) => {
   try {
     setId(id);
-    
+	  // console.log('The Id: ',id)
+  // const cachedSelectedResult = fetchSelectedResult(id);
+	  // console.log(cachedSelectedResult)
+   // This can show the previous content of the blurrer 
+	    // setBlurrerVisible(true)
     // Wait for the cachedSelectedResult to be resolved
-    const selectedValue = await cachedSelectedResult;
+     const selectedValue = await fetchSelectedResult(id);
+      setSelectedResult(selectedValue);
+      setBlurrerVisible(true)
 
     // Check if selectedValue is not null before updating the state
-    if (selectedValue) {
-      setSelectedResult(selectedValue);
-    } else {
+  //  if (selectedValue) {
+    //  setSelectedResult(cachedSelectedResult);
+   // } else {
 
-      setSelectedResult(selectedValue);
       // Handle the case when selectedValue is null or undefined
       // You may want to display an error message or handle it as needed
-    }
+   // }
   } catch (error) {
     console.error('Error in showMore:', error);
   }

@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchResults, fetchSelectedResult } from './SearchRequest';
 import { useTheme } from '@mui/material';
 import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
-import LetterComponent from './LetterComponent';
-import './style.css';
-import { credentials } from './credentials';
+import LetterComponent from '../Letter/LetterComponent';
+import './SearchComponent.css';
 
-const { username, password } = credentials;
 
 const SearchComponent = () => {
   const theme = useTheme();
   const [showLetterComponent, setShowLetterComponent] = useState(false);
+
   const [isInputDocked, setIsInputDocked] = useState(false);
+
   const [searchResults, setSearchResults] = useState([]);
-  const [blurrerVisible, setBlurrerVisible] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
+
+  const [query, setQuery] = useState('');
+  const [id, setId] = useState(''); 
+	
+  const cachedSearchResults = useSearchResults(query);
+// No caching for the selected result
+//  const cachedSelectedResult = useSelectedResult(id);
+
+  const [blurrerVisible, setBlurrerVisible] = useState(false);
+
   const [letterFormData, setLetterFormData] = useState({
     from: '',
     to: '',
@@ -22,50 +32,49 @@ const SearchComponent = () => {
   });
 
   const handleSearchInputChange = async (event) => {
-    const query = event.target.value;
-
-    try {
-      const response = await fetch(`http://localhost:9200/software_jobs/_search?q=*${query}*&size=1000`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setSearchResults(data.hits.hits.map(offre => ({ id: offre._id, ...offre._source })));
-    } catch (error) {
-      console.error('Error fetching data from Elasticsearch:', error);
-    }
+    // Use cachedSearchResults directly
+    setQuery(event.target.value);
+    const resolvedValue = await cachedSearchResults;
+    // setSearchResults(cachedSearchResults);
+    setSearchResults(resolvedValue);
+    // console.log(resolvedValue)
+	  // logs the array of jobs data
   };
 
-  const showMore = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:9200/software_jobs/_doc/${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        },
-      });
+const showMore = async (id) => {
+  try {
+    setId(id);
+	  // console.log('The Id: ',id)
+  // const cachedSelectedResult = fetchSelectedResult(id);
+	  // console.log(cachedSelectedResult)
+   // This can show the previous content of the blurrer 
+	    // setBlurrerVisible(true)
+    // Wait for the cachedSelectedResult to be resolved
+     const selectedValue = await fetchSelectedResult(id);
+      setSelectedResult(selectedValue);
+      setBlurrerVisible(true)
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+    // Check if selectedValue is not null before updating the state
+  //  if (selectedValue) {
+    //  setSelectedResult(cachedSelectedResult);
+   // } else {
 
-      const data = await response.json();
-      setSelectedResult(data._source);
-      setBlurrerVisible(true);
-    } catch (error) {
-      console.error('Error fetching data from Elasticsearch:', error);
-    }
-  };
+      // Handle the case when selectedValue is null or undefined
+      // You may want to display an error message or handle it as needed
+   // }
+  } catch (error) {
+    console.error('Error in showMore:', error);
+  }
+};
 
+// const showMore = async (id) => {
+//    setBlurrerVisible(true);
+//    setId(id); 
+//    const selectedValue = await cachedSelectedResult;
+// 
+//    setSelectedResult(selectedValue)
+// }; 
+// 
   const closeBlurrer = () => {
     setBlurrerVisible(false);
   };
@@ -145,7 +154,10 @@ const SearchComponent = () => {
           zIndex: 1000,
 	  backgroundColor:theme.palette.background.default,
         }}
-        onChange={handleSearchInputChange}
+        // onChange={useSearchResults}
+	      value={query}
+	  // onChange={(e) => setQuery(e.target.value)}
+	  onChange={handleSearchInputChange}
       />
 
       <div id='search-results' 
@@ -163,7 +175,8 @@ const SearchComponent = () => {
             <Typography variant="body2">Via: {result.via}</Typography>
             {/* Uncomment the following line if you want to display the description */}
             {/* <Typography variant="body2">Description: {result.description}</Typography> */}
-            <Button variant="outlined" onClick={() => showMore(result.id)}>
+            {/* // <Button variant="outlined" onClick={() => setSelectedResult(result.id)}> */}
+	      <Button variant="outlined" onClick={() => showMore(result.id)}>
               More
             </Button>
 		</div>
@@ -187,11 +200,11 @@ const SearchComponent = () => {
       </div>
       {blurrerVisible && (
         <CardComponent
-          title={selectedResult.title}
-          company_name={selectedResult.company_name}
-          location={selectedResult.location}
-          via={selectedResult.via}
-          description={selectedResult.description}
+          title={selectedResult?.title}
+          company_name={selectedResult?.company_name}
+          location={selectedResult?.location}
+          via={selectedResult?.via}
+          description={selectedResult?.description}
         />
       )}
       {showLetterComponent && (

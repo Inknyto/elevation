@@ -8,11 +8,15 @@ export const useSearchResults = (query) => {
   }, [query]);
 };
 
-export const useSelectedResult = (id) => {
-  return useMemo(() => {
-    return fetchSelectedResult(id);
-  }, [id]);
-};
+// export const useSelectedResult = (id) => {
+    // return fetchSelectedResult(id);
+// };
+
+// export const useSelectedResult = (id) => {
+//   return useMemo(() => {
+//     return fetchSelectedResult(id);
+//   }, [id]);
+// };
 
 const fetchSearchResults = async (query) => {
  // console.log(query, username, password)
@@ -40,7 +44,7 @@ const fetchSearchResults = async (query) => {
   }
 };
 
-const fetchSelectedResult = async (id) => {
+export const fetchSelectedResult = async (id) => {
     //return null;
 	console.log('hi from server: ',id)
   try {
