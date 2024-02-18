@@ -5,17 +5,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 }
+.job-map-dark-mode{
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 
+}
 .job-map-container {
   position: relative;
   width: 60%; /* Adjust as needed */
   max-width: 800px; /* Maximum width for the map container */
   height: 100%; /* Adjust as needed */
   max-height: 1000px; /* Maximum height for the map container */
-  border-radius: 8px;
+  border-radius: 5px;
   overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .close-button {

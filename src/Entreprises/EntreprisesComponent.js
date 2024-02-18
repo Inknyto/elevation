@@ -152,7 +152,7 @@ const showMore = async (id) => {
 
         // variant='outlined'
         id='entreprises-input'
-        placeholder='What job are you looking for?'
+        placeholder='What entreprise are you looking for?'
  //       label='entreprises'
         type="text"
         style={{
@@ -177,11 +177,11 @@ const showMore = async (id) => {
 		<div className='result-data'>
             {/* Display entreprises results */}
             <Typography variant="h6">Nom: {result.Nom}</Typography>
-            <Typography variant="body1">Company name: {result.Type}</Typography>
+            <Typography variant="body1">Activité: {result.Type}</Typography>
             <Typography variant="body1">Region: {result.Region}</Typography>
             <Typography variant="body2">Arrondissement: {result.Arrondissement}</Typography>
             {/* Uncomment the following line if you want to display the Tél */}
-            {/* <Typography variant="body2">Tél: {result.Tél}</Typography> */}
+            {/* <Typography variant="body2">Tél: {result.Tél}</Typography> 
             {/* // <Button variant="outlined" onClick={() => setSelectedResult(result.id)}> */}
 	      <Button variant="outlined" onClick={() => showMore(result.id)}>
               More
