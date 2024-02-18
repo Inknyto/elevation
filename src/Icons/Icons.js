@@ -12,17 +12,28 @@ import { DarkModeContext } from "../Theme/DarkMode";
 //import { LeftIcons } from 'LeftIcons';
   
 //import { RightIcons } from 'RightIcons'; 
-const Icons = () => {
+const Icons = ({ onIconClick }) => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   // Handle click events for your icons
   const handleLeftIconClick = () => {
     console.log('Left icon clicked');
   };
-  const showMap = () => {
-    console.log('Left icon clicked');
+  const toggleMap = (currentView) => {
+   // write the logic for changing the view 
+    onIconClick('map');
+    console.log('Map icon clicked');
   };
 
+// Okay, this one might be a little tricky
+	// the button is for going back to search result view
+	// not for firing up the search engine
+  const handleSearchButtonClick = () => {
+    onIconClick('search');
+    
+    console.log('Search icon clicked');
+  };
+	
   const handleRightIconClick = () => {
     console.log('Right icon clicked');
   };
@@ -44,7 +55,7 @@ const Icons = () => {
         <div className="icon" onClick={toggleDarkMode}>
           <Sun />
 
-          <p>      {darkMode ? "Mode Clair" : "Mode Sombre"}</p>
+          <p> {darkMode ? "Mode Clair" : "Mode Sombre"}</p>
 
         </div>
 
@@ -63,17 +74,13 @@ const Icons = () => {
 
           <p>Entreprises</p>
 
-
-
         </div>
 
-        <div className="icon" onClick={showMap}>
+        <div className="icon" onClick={toggleMap}>
 
           <Map />
 
           <p>Afficher la carte</p>
-
-
 
         </div>
       </div>
@@ -82,11 +89,8 @@ const Icons = () => {
         {/* Right Icon */}
         <div className="icon" onClick={openUser}>
 
-
-
           <p>Mon Compte</p>
           <User />
-
 
         </div>
 
@@ -95,10 +99,7 @@ const Icons = () => {
 
           <p>Offres enregistrées</p>
 
-
-
           <Sun />
-
 
         </div>
 
@@ -106,22 +107,16 @@ const Icons = () => {
         <div className="icon" onClick={handleLeftIconClick}>
           <p>texte!</p>
 
-
-
           <Sun />
-
 
         </div>
 
         {/* Right Icon */}
-        <div className="icon" onClick={handleRightIconClick}>
+        <div className="icon" onClick={handleSearchButtonClick}>
 
-          <p>texte!</p>
-
-
+          <p>Rechercher</p>
 
           <Sun />
-
 
         </div>
       </div>

@@ -1,21 +1,55 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { credentials } from './credentials';
+
 const { username, password } = credentials;
 
+
 export const useSearchResults = (query) => {
-  return useMemo(() => {
-    return fetchSearchResults(query);
+  const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchSearchResults(query);
+        setResults(data);
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [query]);
+
+  return useMemo(() => ({ loading, results }), [loading, results]);
 };
 
 export const useSelectedResult = (id) => {
-  return useMemo(() => {
-    return fetchSelectedResult(id);
+  const [loading, setLoading] = useState(true);
+  const [selectedResult, setSelectedResult] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchSelectedResult(id);
+        setSelectedResult(data);
+      } catch (error) {
+        console.error('Error fetching selected result:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [id]);
+
+  return useMemo(() => ({ loading, selectedResult }), [loading, selectedResult]);
 };
 
 const fetchSearchResults = async (query) => {
- console.log(query, username, password)
+ // console.log(query, username, password)
 // Biggest security flaw ever
   try {
     const response = await fetch(`http://localhost:8080/elasticsearch/software_jobs/_search?q=*${query}*&size=1000`, {
@@ -29,7 +63,7 @@ const fetchSearchResults = async (query) => {
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
-	console.log(`response: ${response.json}`);
+        // console.log(`response: ${response.json}`);
     }
 
     const data = await response.json();
@@ -42,6 +76,7 @@ const fetchSearchResults = async (query) => {
 
 const fetchSelectedResult = async (id) => {
     //return null;
+        console.log('hi from server: ',id)
   try {
     const response = await fetch(`http://localhost:8080/elasticsearch/software_jobs/_doc/${id}`, {
       method: 'GET',
@@ -57,6 +92,7 @@ const fetchSelectedResult = async (id) => {
     }
 
     const data = await response.json();
+          console.log(data._source.title)
     return data._source;
   } catch (error) {
     console.error('Error fetching data from Elasticsearch:', error);

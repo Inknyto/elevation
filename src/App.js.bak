@@ -7,7 +7,6 @@ import FooterComponent from './Footer/FooterComponent';
 
 const App = () => {
   const [currentView, setCurrentView] = useState('search');
-  // const [previousView, setPreviousView] = useState('');
 
   const jobs = [
     {
@@ -20,31 +19,21 @@ const App = () => {
     },
     // Add more job objects here
   ];
-
-  const renderCurrentView = () => {
-    switch (currentView) {
-      case 'search':
-        return <SearchComponent />;
-      case 'map':
-        return <JobMap jobs={jobs} />;
-      // Add more cases for other views as needed
-      default:
-        return null;
-    }
-  };
-
   const handleIconClick = (view) => {
-    // setPreviousView(currentView);
     setCurrentView(view);
   };
 
   return (
     <div className="app">
       <Logo />
-      <Icons onIconClick={handleIconClick} currentView={currentView} />
-
-      {/* Conditionally render the current view based on the switch statement */}
-      {renderCurrentView()}
+      <Icons onIconClick={handleIconClick} />
+      
+      {/* Conditionally render the SearchComponent or JobMap based on the currentView */}
+      {currentView === 'search' ? (
+        <SearchComponent />
+      ) : (
+      <JobMap jobs={jobs} />
+      )}
 
       <FooterComponent />
     </div>

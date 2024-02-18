@@ -81,7 +81,10 @@ textarea {
   border-radius: 10px;
   min-height: 200px;
 }
-
+.job-map-overlay{
+width: 100%;
+height: 60vh;
+}
 
 .logo{
 	max-width: 100%;

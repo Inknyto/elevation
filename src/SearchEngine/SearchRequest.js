@@ -15,7 +15,7 @@ export const useSelectedResult = (id) => {
 };
 
 const fetchSearchResults = async (query) => {
- console.log(query, username, password)
+ // console.log(query, username, password)
 // Biggest security flaw ever
   try {
     const response = await fetch(`http://localhost:8080/elasticsearch/software_jobs/_search?q=*${query}*&size=1000`, {
@@ -29,7 +29,7 @@ const fetchSearchResults = async (query) => {
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
-	console.log(`response: ${response.json}`);
+	// console.log(`response: ${response.json}`);
     }
 
     const data = await response.json();
@@ -41,7 +41,8 @@ const fetchSearchResults = async (query) => {
 };
 
 const fetchSelectedResult = async (id) => {
-    return null;
+    //return null;
+	console.log('hi from server: ',id)
   try {
     const response = await fetch(`http://localhost:8080/elasticsearch/software_jobs/_doc/${id}`, {
       method: 'GET',
@@ -57,6 +58,7 @@ const fetchSelectedResult = async (id) => {
     }
 
     const data = await response.json();
+	  console.log(data._source.title)
     return data._source;
   } catch (error) {
     console.error('Error fetching data from Elasticsearch:', error);

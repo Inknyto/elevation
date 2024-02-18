@@ -15,14 +15,6 @@ body {
   flex-direction: column;
   align-items: center;
 }
-#search-engine-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  justify-content: center;
-  width: 170vh; /* Adjust as needed */
-}
 
 .job_skills{
   display:block;
@@ -89,16 +81,9 @@ textarea {
   border-radius: 10px;
   min-height: 200px;
 }
-
-#search-input {
-  width: 50vw;
-  margin: 10px;
-  padding: 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  z-index: 2;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+.job-map-container{
+width: 100%;
+height: 60vh;
 }
 
 .logo{
@@ -166,16 +151,6 @@ textarea {
   margin: 20px;
 }
 
-#search-results {
-  width: 80%;
-  padding: 30px;
-  border-radius: 5px;
-  margin-top: 50px;
-  z-index: 1;
-  max-height: 180vh;
-  overflow-y: auto;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-}
 
 button {
   width: 100%;

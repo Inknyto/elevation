@@ -9,16 +9,20 @@ import './SearchComponent.css';
 const SearchComponent = () => {
   const theme = useTheme();
   const [showLetterComponent, setShowLetterComponent] = useState(false);
-  const [isInputDocked, setIsInputDocked] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [query, setQuery] = useState('');
 
-  const [id, setId] = useState('');  // Assuming you have a state for query
+  const [isInputDocked, setIsInputDocked] = useState(false);
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedResult, setSelectedResult] = useState(null);
+
+  const [query, setQuery] = useState('');
+  const [id, setId] = useState(''); 
 	
   const cachedSearchResults = useSearchResults(query);
   const cachedSelectedResult = useSelectedResult(id);
+
   const [blurrerVisible, setBlurrerVisible] = useState(false);
-  const [selectedResult, setSelectedResult] = useState(null);
+
   const [letterFormData, setLetterFormData] = useState({
     from: '',
     to: '',
@@ -29,20 +33,42 @@ const SearchComponent = () => {
   const handleSearchInputChange = async (event) => {
     // Use cachedSearchResults directly
     setQuery(event.target.value);
+    const resolvedValue = await cachedSearchResults;
     // setSearchResults(cachedSearchResults);
-	//data.hits.hits.map(offre => ({ id: offre._id, ...offre._source }))
-// console.log(Object.keys(cachedSearchResults))
-console.log(cachedSearchResults)
-// console.log(.hits.hits.map(offre => ({ id: offre._id, ...offre._source })))
-
+    setSearchResults(resolvedValue);
+    // console.log(resolvedValue)
+	  // logs the array of jobs data
   };
 
-//  const showMore = async (id) => {
-//    // Use cachedSelectedResult directly
-//    setSelectedResult(cachedSelectedResult);
-//    setBlurrerVisible(true);
-//  }; 
+const showMore = async (id) => {
+  try {
+    setId(id);
+    
+    // Wait for the cachedSelectedResult to be resolved
+    const selectedValue = await cachedSelectedResult;
 
+    // Check if selectedValue is not null before updating the state
+    if (selectedValue) {
+      setSelectedResult(selectedValue);
+    } else {
+
+      setSelectedResult(selectedValue);
+      // Handle the case when selectedValue is null or undefined
+      // You may want to display an error message or handle it as needed
+    }
+  } catch (error) {
+    console.error('Error in showMore:', error);
+  }
+};
+
+// const showMore = async (id) => {
+//    setBlurrerVisible(true);
+//    setId(id); 
+//    const selectedValue = await cachedSelectedResult;
+// 
+//    setSelectedResult(selectedValue)
+// }; 
+// 
   const closeBlurrer = () => {
     setBlurrerVisible(false);
   };
@@ -144,7 +170,7 @@ console.log(cachedSearchResults)
             {/* Uncomment the following line if you want to display the description */}
             {/* <Typography variant="body2">Description: {result.description}</Typography> */}
             {/* // <Button variant="outlined" onClick={() => setSelectedResult(result.id)}> */}
-	      <Button variant="outlined" onClick={() => setSelectedResult(cachedSelectedResult)}>
+	      <Button variant="outlined" onClick={() => showMore(result.id)}>
               More
             </Button>
 		</div>
@@ -168,11 +194,11 @@ console.log(cachedSearchResults)
       </div>
       {blurrerVisible && (
         <CardComponent
-          title={selectedResult.title}
-          company_name={selectedResult.company_name}
-          location={selectedResult.location}
-          via={selectedResult.via}
-          description={selectedResult.description}
+          title={selectedResult?.title}
+          company_name={selectedResult?.company_name}
+          location={selectedResult?.location}
+          via={selectedResult?.via}
+          description={selectedResult?.description}
         />
       )}
       {showLetterComponent && (
