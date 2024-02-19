@@ -1,7 +1,9 @@
+// LoginComponent.js
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './LoginComponent.css';
+import { authenticateUser } from './AuthService';
 
 const LoginComponent = ({ onLogin }) => {
   const [loginData, setLoginData] = useState({
@@ -13,10 +15,15 @@ const LoginComponent = ({ onLogin }) => {
     setLoginData((prevData) => ({ ...prevData, [field]: value }));
   };
 
-  const handleLogin = () => {
-    // Perform login logic (authentication) here
-    // For this example, just pass the loginData to the parent component
-    onLogin(loginData);
+  const handleLogin = async () => {
+    try {
+      const userData = await authenticateUser(loginData.username, loginData.password);
+      // Call onLogin with the authenticated user data
+      onLogin(userData);
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error (display error message, etc.)
+    }
   };
 
   return (
