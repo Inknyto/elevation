@@ -6,9 +6,9 @@ import LetterComponent from '../Letter/LetterComponent';
 import './SearchComponent.css';
 
 
-const SearchComponent = () => {
+const SearchComponent = ({ currentView, setCurrentView }) => {
   const theme = useTheme();
-  const [showLetterComponent, setShowLetterComponent] = useState(false);
+  // const [showLetterComponent, setShowLetterComponent] = useState(false);
 
   const [isInputDocked, setIsInputDocked] = useState(false);
 
@@ -44,13 +44,13 @@ const SearchComponent = () => {
   useEffect(() => {
     // This code will be executed when the component is mounted
     // setQuery('');
-	const initislSearch = '';
-handleSearchInputChange({ 'target' : initislSearch })
+	const initialSearch = '';
+handleSearchInputChange({ 'target' : initialSearch })
   }, []); // The empty dependency array ensures that this effect runs only once, equivalent to componentDidMount
 
 const showMore = async (id) => {
   try {
-    setId(id);
+ //   setId(id);
 	  // console.log('The Id: ',id)
   // const cachedSelectedResult = fetchSelectedResult(id);
 	  // console.log(cachedSelectedResult)
@@ -87,7 +87,8 @@ const showMore = async (id) => {
   };
 
   const toggleLetter = () => {
-    setShowLetterComponent(!showLetterComponent);
+setCurrentView('letter')
+//    setShowLetterComponent(!showLetterComponent);
   };
 
   const handleSendLetter = () => {

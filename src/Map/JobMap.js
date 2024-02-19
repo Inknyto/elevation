@@ -55,9 +55,6 @@ useEffect(() => {
           style={{
   height: '500px',
   width: '100%',
-  // filter: theme.palette.mode === 'dark' ? 'invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)' : 'none',
-			  // does not re_render
-  filter: mapFilter,
 }}
 	  scrollWheelZoom={false}
         >

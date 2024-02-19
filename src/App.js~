@@ -35,7 +35,7 @@ const App = () => {
   const renderCurrentView = () => {
     switch (currentView) {
       case 'search':
-        return <SearchComponent />;
+        return <SearchComponent currentView={currentView} setCurrentView={setCurrentView} />;
       case 'map':
         return <JobMap jobs={jobs} />;
       // Add more cases for other views as needed

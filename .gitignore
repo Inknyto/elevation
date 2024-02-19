@@ -8,6 +8,7 @@
 /manage-index/elasticsearch-venv
 /to_phone
 /to_phone.tar.gz
+/build.tar.gz
 /.pnp
 .pnp.js
 # testing
