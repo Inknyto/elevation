@@ -8,14 +8,21 @@ import LetterComponent from './Letter/LetterComponent';
 import LoginComponent from './Login/LoginComponent';
 import EntreprisesComponent from './Entreprises/EntreprisesComponent';
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
+
 const App = () => {
   const [currentView, setCurrentView] = useState('search');
   // const [previousView, setPreviousView] = useState('');
 
-  const handleLogin = (loginData) => {
+  const onLogin = (token) => {
 	
     // Perform authentication logic here
-    console.log('Login data:', loginData);
+    console.log('Token: ', token);
+	  console.log(sessionStorage)
+	sessionStorage.setItem('token', token)
     // You can send a request to your authentication server or handle the logic as needed
   };
 
@@ -42,9 +49,11 @@ const App = () => {
       case 'letter':
         return 	<LetterComponent />;
       case 'login':
-        return 	<LoginComponent />;
+
+
+        return 	<LoginComponent onLogin={onLogin}/>;
       case 'entreprises':
-        return 	<EntreprisesComponent />;
+        return 	<EntreprisesComponent currentView={currentView} setCurrentView={setCurrentView} />;
 
 
       default:

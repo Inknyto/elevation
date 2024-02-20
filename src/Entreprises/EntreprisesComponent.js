@@ -6,7 +6,7 @@ import LetterComponent from '../Letter/LetterComponent';
 import './EntreprisesComponent.css';
 
 
-const EntreprisesComponent = () => {
+const EntreprisesComponent = ({ currentView, setCurrentView }) => {
   const theme = useTheme();
   const [showLetterComponent, setShowLetterComponent] = useState(false);
 
@@ -58,17 +58,15 @@ const showMore = async (id) => {
 	    // setBlurrerVisible(true)
     // Wait for the cachedSelectedResult to be resolved
      const selectedValue = await fetchSelectedResult(id);
-      setSelectedResult(selectedValue);
-      setBlurrerVisible(true)
 
     // Check if selectedValue is not null before updating the state
-  //  if (selectedValue) {
-    //  setSelectedResult(cachedSelectedResult);
-   // } else {
-
-      // Handle the case when selectedValue is null or undefined
-      // You may want to display an error message or handle it as needed
-   // }
+    if (selectedValue) {
+      setSelectedResult(selectedValue);
+      setBlurrerVisible(true)
+    } else {
+	setCurrentView('login');
+	    alert('You must login first!!');
+    }
   } catch (error) {
     console.error('Error in showMore:', error);
   }

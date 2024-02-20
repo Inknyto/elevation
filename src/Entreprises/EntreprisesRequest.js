@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
-import { credentials } from './credentials';
-const { username, password } = credentials;
+// import { authenticateUser } from '../Login/Authentication.js';
+// Maybe implement a better handling of the token retrieval
+const token = sessionStorage.getItem('token')
+
+
+// const token = await authenticateUser('user1', 'password1');
 
 export const useEntreprisesResults = (query) => {
   return useMemo(() => {
@@ -26,8 +30,6 @@ const fetchEntreprisesResults = async (query) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        'Access-Control-Allow-Origin': '*', // Allow requests from any origin
       },
     });
 
@@ -52,8 +54,7 @@ export const fetchSelectedResult = async (id) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+        'Authorization': `Bearer ${token}`,
       },
     });
 

@@ -50,25 +50,19 @@ handleSearchInputChange({ 'target' : initialSearch })
 
 const showMore = async (id) => {
   try {
- //   setId(id);
-	  // console.log('The Id: ',id)
-  // const cachedSelectedResult = fetchSelectedResult(id);
-	  // console.log(cachedSelectedResult)
-   // This can show the previous content of the blurrer 
-	    // setBlurrerVisible(true)
-    // Wait for the cachedSelectedResult to be resolved
      const selectedValue = await fetchSelectedResult(id);
-      setSelectedResult(selectedValue);
-      setBlurrerVisible(true)
 
     // Check if selectedValue is not null before updating the state
-  //  if (selectedValue) {
-    //  setSelectedResult(cachedSelectedResult);
-   // } else {
-
+     if (selectedValue) {
+       setSelectedResult(selectedValue);
+       setBlurrerVisible(true)
+     } else {
+       setCurrentView('login')
+	     // document.body.append('You must login first')
+	      alert('You must login first');
       // Handle the case when selectedValue is null or undefined
       // You may want to display an error message or handle it as needed
-   // }
+    }
   } catch (error) {
     console.error('Error in showMore:', error);
   }
@@ -88,6 +82,7 @@ const showMore = async (id) => {
 
   const toggleLetter = () => {
 setCurrentView('letter')
+	  // this function may be able to provide the letter with the proper information
 //    setShowLetterComponent(!showLetterComponent);
   };
 

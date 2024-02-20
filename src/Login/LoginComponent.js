@@ -5,6 +5,11 @@ import Button from '@mui/material/Button';
 import './LoginComponent.css';
 import { authenticateUser } from './Authentication';
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
+
 const LoginComponent = ({ onLogin }) => {
   const [loginData, setLoginData] = useState({
     username: '',
@@ -17,18 +22,22 @@ const LoginComponent = ({ onLogin }) => {
 
   const handleLogin = async () => {
     try {
-      const userData = await authenticateUser(loginData.username, loginData.password);
+      const token = await authenticateUser(loginData.username, loginData.password);
       // Call onLogin with the authenticated user data
-      onLogin(userData);
+      onLogin(token);
     } catch (error) {
       console.error('Login error:', error);
       // Handle login error (display error message, etc.)
     }
   };
 
+
   return (
-    <div id='login-div'>
-      <h2>Login</h2>
+   <Card id='login-card'>
+      <CardContent id='login-card-content'>
+        <Typography variant="h4" gutterBottom>
+          Login
+        </Typography>
 
       <TextField
         type="text"
@@ -47,7 +56,8 @@ const LoginComponent = ({ onLogin }) => {
       <Button variant="contained" color="primary" onClick={handleLogin}>
         Login
       </Button>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

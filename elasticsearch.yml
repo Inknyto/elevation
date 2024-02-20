@@ -1,0 +1,83 @@
+# ======================== Elasticsearch Configuration =========================
+#
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what you are trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please consult the documentation for further information on configuration options:
+# https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+cluster.name: nyto-cluster
+
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+node.name: node-1
+
+# ----------------------------------- Paths ------------------------------------
+#
+# Path to directory where to store the data (separate multiple locations by comma):
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+
+# ----------------------------------- Memory -----------------------------------
+#
+# Lock the memory on startup:
+bootstrap.memory_lock: true
+
+# Make sure that the heap size is set to about half the memory available
+# on the system and that the owner of the process is allowed to use this
+# limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+#
+# By default, Elasticsearch is only accessible on localhost. Set a different
+# address here to expose this node on the network:
+network.host: 0.0.0.0
+
+# By default, Elasticsearch listens for HTTP traffic on the first free port it
+# finds starting at 9200. Set a specific HTTP port here:
+http.port: 9200
+
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Configure single-node discovery type:
+discovery.type: single-node
+
+# ---------------------------------- Various -----------------------------------
+#
+# Allow wildcard deletion of indices:
+action.destructive_requires_name: false
+
+## enable cors by nyto
+#http.cors.enabled: true
+#http.cors.allow-origin: "*"
+## Extra
+#http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+## http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type,Content-Length
+## http.cors.allow-credentials: true
+http.cors.enabled : true
+http.cors.allow-origin: "*"
+#http.cors.allow-origin: "localhost:3000"
+http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type,Content-Length
+http.cors.allow-credentials: true
+
+#(Bad config) For the jwt proxy authentication
+# xpack.security.authc.realms.proxy_proxy.type: proxy_proxy
+# xpack.security.authc.realms.proxy_proxy.order: 0
+
+#(Bad config 2) For the jwt proxy authentication
+# xpack.security.authc.token.enabled: true
+# xpack.security.authc.token.verification_key: "http://localhost:8080/login"
+

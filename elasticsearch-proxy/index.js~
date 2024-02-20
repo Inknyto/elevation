@@ -3,7 +3,6 @@ const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
-// import { credentials } from './credentials';
 const { username, password } = require('./credentials');
 
 const app = express();
@@ -22,7 +21,8 @@ const users = [
 
 // Middleware for extracting JWT from Authorization header
 // app.use(expressJwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless({ path: ['/login'] }));
-app.use(expressJwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless({ path: ['/login'] }));
+// The search engine no longer requires access token 
+app.use(expressJwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless({ path: ['/login', '/elasticsearch/software_jobs/_search', '/elasticsearch/senegal_entreprises_data/_search'] }));
 
 // Define the Elasticsearch endpoint
 const elasticsearchEndpoint = 'http://localhost:9200';

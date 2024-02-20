@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
-import { credentials } from './credentials';
-const { username, password } = credentials;
+// import { authenticateUser } from '../Login/Authentication.js';
+
+const token = sessionStorage.getItem('token')
+
+
+// const token = await authenticateUser('user1', 'password1');
 
 export const useEntreprisesResults = (query) => {
   return useMemo(() => {
@@ -22,12 +26,10 @@ const fetchEntreprisesResults = async (query) => {
  // console.log(query, username, password)
 // Biggest security flaw ever
   try {
-    const response = await fetch(`http://localhost:8080/elasticsearch/senegal_entreprises_data/_search?q=*${query.toLowerCase()}*&size=10`, {
+    const response = await fetch(`http://localhost:8080/elasticsearch/senegal_entreprises_data/_search?q=*${query}*&size=10`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        'Access-Control-Allow-Origin': '*', // Allow requests from any origin
       },
     });
 
@@ -52,8 +54,7 @@ export const fetchSelectedResult = async (id) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+        'Authorization': `Bearer ${token}`,
       },
     });
 

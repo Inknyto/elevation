@@ -3,10 +3,22 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material';
 import { useSearchResults } from '../SearchEngine/SearchRequest';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { ReactComponent as JobIcon } from '../Icons/assets/sun.svg';
 import "leaflet/dist/leaflet.css"
 import './JobMap.css'; // Import a CSS file for styling
 
-import { ReactComponent as JobIcon } from '../Icons/assets/sun.svg';
+
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
+
 const JobMap = ({ jobs, onClose }) => {
   const [query, setQuery] = useState('');
   const theme = useTheme();

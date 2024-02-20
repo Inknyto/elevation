@@ -1,8 +1,18 @@
-tree src
 .
 ├── App.js
 ├── App.js~
+├── App.js.bak
+├── App.js.bak.bak
 ├── App.test.js
+├── Entreprises
+│   ├── credentials.js
+│   ├── EntreprisesComponent.css
+│   ├── EntreprisesComponent.js
+│   ├── EntreprisesComponent.js~
+│   ├── EntreprisesComponent.js.bak
+│   ├── EntreprisesRequest.js
+│   ├── EntreprisesRequest.js~
+│   └── EntreprisesRequest.js.bak
 ├── Footer
 │   ├── FooterComponent.js
 │   ├── footer.css
@@ -20,23 +30,50 @@ tree src
 │   │   ├── mail.svg~
 │   │   ├── map.svg
 │   │   ├── map.svg~
+│   │   ├── moon.svg
+│   │   ├── moon.svg~
+│   │   ├── saved.svg
+│   │   ├── saved.svg~
+│   │   ├── search.svg
+│   │   ├── search.svg~
 │   │   ├── sun.svg
 │   │   ├── user.svg
 │   │   └── user.svg~
 │   ├── Icons.css
+│   ├── Icons.css.bak
 │   ├── Icons.js
-│   └── Icons.js~
+│   ├── Icons.js~
+│   └── Icons.js.bak
 ├── index.js
 ├── index.js~
-├── JobMap.js
 ├── Letter
+│   ├── LetterComponent.css
+│   ├── LetterComponent.css~
 │   ├── LetterComponent.js
 │   ├── LetterComponent.js~
 │   └── LetterComponent.js.bak.old
+├── Login
+│   ├── Authentication.js
+│   ├── Authentication.js~
+│   ├── Authentication.js.bak
+│   ├── LoginComponent.css
+│   ├── LoginComponent.css~
+│   ├── LoginComponent.js
+│   ├── LoginComponent.js~
+│   └── LoginComponent.js.bak
 ├── manage_data.js
+├── Map
+│   ├── JobMap.css
+│   ├── JobMap.css~
+│   ├── JobMap.js
+│   └── JobMap.js~
 ├── reportWebVitals.js
 ├── SearchEngine
 │   ├── credentials.js
+│   ├── from_phone
+│   │   ├── old_request.js
+│   │   ├── SearchComponent.js
+│   │   └── SearchComponent.js~
 │   ├── SearchComponent.css
 │   ├── SearchComponent.js
 │   ├── SearchComponent.js~
@@ -46,10 +83,18 @@ tree src
 │   ├── SearchRequest.js~
 │   └── SearchRequest.js.bak
 ├── setupTests.js
-├── src_tree.txt
+├── src_structure.txt
+├── src_structure.txt~
 ├── style.css
 ├── style.css~
 ├── test-unused
+│   ├── file1.txt
+│   ├── file2.txt
+│   ├── file2.txt.bak
+│   ├── file2.txt.bak.bak
+│   ├── file3.txt
+│   ├── savior.py
+│   └── savior.py~
 ├── Theme
 │   ├── DarkMode.js
 │   ├── DarkMode.js~
@@ -91,8 +136,14 @@ tree src
     ├── Theme.js.bak
     └── toggleDarkMode.js
 
-10 directories, 81 files
+14 directories, 123 files
+
 .
+./Map
+./Map/JobMap.css~
+./Map/JobMap.js~
+./Map/JobMap.css
+./Map/JobMap.js
 ./style.css~
 ./Footer
 ./Footer/footer.css
@@ -100,6 +151,15 @@ tree src
 ./Footer/FooterComponent.js
 ./src_structure.txt
 ./index.js
+./Login
+./Login/LoginComponent.css~
+./Login/Authentication.js~
+./Login/LoginComponent.js~
+./Login/LoginComponent.js
+./Login/LoginComponent.css
+./Login/LoginComponent.js.bak
+./Login/Authentication.js
+./Login/Authentication.js.bak
 ./Icons
 ./Icons/Icons.css
 ./Icons/Icons.js
@@ -108,6 +168,8 @@ tree src
 ./Icons/assets/entreprises.svg~
 ./Icons/assets/growlogo.py~
 ./Icons/assets/growlogo.py
+./Icons/assets/search.svg
+./Icons/assets/moon.svg
 ./Icons/assets/entreprises.svg
 ./Icons/assets/sun.svg
 ./Icons/assets/logo.svg
@@ -115,10 +177,16 @@ tree src
 ./Icons/assets/mail.svg~
 ./Icons/assets/mail.svg
 ./Icons/assets/logo.svg~
+./Icons/assets/saved.svg
 ./Icons/assets/map.svg~
+./Icons/assets/saved.svg~
 ./Icons/assets/logo.svg.bak
+./Icons/assets/search.svg~
+./Icons/assets/moon.svg~
 ./Icons/assets/user.svg~
 ./Icons/Icons.js~
+./Icons/Icons.js.bak
+./Icons/Icons.css.bak
 ./Theme
 ./Theme/DarkMode.js
 ./Theme/Theme.js~
@@ -126,15 +194,34 @@ tree src
 ./Theme/DarkMode.js~
 ./manage_data.js
 ./style.css
+./Entreprises
+./Entreprises/EntreprisesRequest.js~
+./Entreprises/EntreprisesComponent.js~
+./Entreprises/EntreprisesRequest.js.bak
+./Entreprises/EntreprisesComponent.js
+./Entreprises/EntreprisesComponent.js.bak
+./Entreprises/credentials.js
+./Entreprises/EntreprisesRequest.js
+./Entreprises/EntreprisesComponent.css
 ./Letter
+./Letter/LetterComponent.css
 ./Letter/LetterComponent.js~
 ./Letter/LetterComponent.js.bak.old
 ./Letter/LetterComponent.js
+./Letter/LetterComponent.css~
 ./App.test.js
 ./index.js~
 ./test-unused
+./test-unused/file2.txt.bak.bak
+./test-unused/savior.py
+./test-unused/file3.txt
+./test-unused/file2.txt.bak
+./test-unused/savior.py~
+./test-unused/file2.txt
+./test-unused/file1.txt
 ./setupTests.js
 ./reportWebVitals.js
+./App.js.bak.bak
 ./SearchEngine
 ./SearchEngine/SearchRequest.js~
 ./SearchEngine/SearchRequest.js
@@ -143,10 +230,14 @@ tree src
 ./SearchEngine/SearchRequest.js.bak
 ./SearchEngine/SearchComponent.js.bak
 ./SearchEngine/SearchComponent.js~
+./SearchEngine/from_phone
+./SearchEngine/from_phone/SearchComponent.js
+./SearchEngine/from_phone/old_request.js
+./SearchEngine/from_phone/SearchComponent.js~
 ./SearchEngine/SearchEngine.css~
 ./SearchEngine/credentials.js
 ./App.js~
-./JobMap.js
+./App.js.bak
 ./App.js
 ./unused
 ./unused/skills_style.css
@@ -183,3 +274,4 @@ tree src
 ./unused/box-shadow.css
 ./unused/focus_handler.js
 ./unused/Elevation.jpg
+./src_structure.txt~

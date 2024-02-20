@@ -10,24 +10,30 @@ import { ReactComponent as Map } from './assets/map.svg'
 import { ReactComponent as Search } from './assets/search.svg'
 import { ReactComponent as Saved } from './assets/saved.svg'
 import { DarkModeContext } from "../Theme/DarkMode";
+
+
 //import { LeftIcons } from 'LeftIcons';
   
 //import { RightIcons } from 'RightIcons'; 
 const Icons = ({ onIconClick }) => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
   // Handle click events for your icons
+
   const handleLeftIconClick = () => {
     console.log('Left icon clicked');
   };
+
   const showMap = (currentView) => {
    // write the logic for changing the view 
     onIconClick('map');
     console.log('Map icon clicked');
   };
+
   const showEmail = () => {
     onIconClick('letter');
     console.log('showEmail icon clicked');
   };
+
 // Okay, this one might be a little tricky
 	// the button is for going back to search result view
 	// not for firing up the search engine
@@ -40,10 +46,12 @@ const Icons = ({ onIconClick }) => {
   const handleRightIconClick = () => {
     console.log('Right icon clicked');
   };
+
   const showEntreprises = () => {
     onIconClick('entreprises');
     console.log('showEntreprises icon clicked');
   };
+
   const openUser = () => {
     onIconClick('login');
     console.log('openUser icon clicked');
