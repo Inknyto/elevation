@@ -1,0 +1,2 @@
+#!/usr/bin/zsh
+pm2 --name proxy start npm -- start index.js --watch 

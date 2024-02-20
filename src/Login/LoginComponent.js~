@@ -34,7 +34,7 @@ const LoginComponent = ({ onLogin }) => {
 
   return (
    <Card id='login-card'>
-      <CardContent>
+      <CardContent id='login-card-content'>
         <Typography variant="h4" gutterBottom>
           Login
         </Typography>

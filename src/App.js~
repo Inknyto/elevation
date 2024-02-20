@@ -12,17 +12,19 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
+import { useHistory } from 'react-router-dom';
 
 const App = () => {
   const [currentView, setCurrentView] = useState('search');
-  // const [previousView, setPreviousView] = useState('');
+  const [previousView, setPreviousView] = useState('');
+  const history = useHistory();
 
   const onLogin = (token) => {
 	
     // Perform authentication logic here
     console.log('Token: ', token);
-	  console.log(sessionStorage)
 	sessionStorage.setItem('token', token)
+	  console.log(sessionStorage)
     // You can send a request to your authentication server or handle the logic as needed
   };
 
@@ -53,7 +55,7 @@ const App = () => {
 
         return 	<LoginComponent onLogin={onLogin}/>;
       case 'entreprises':
-        return 	<EntreprisesComponent />;
+        return 	<EntreprisesComponent currentView={currentView} setCurrentView={setCurrentView} />;
 
 
       default:
@@ -61,9 +63,15 @@ const App = () => {
     }
   };
 
-  const handleIconClick = (view) => {
-    // setPreviousView(currentView);
+  const handleIconClick = (history, view) => {
+    setPreviousView(currentView);
     setCurrentView(view);
+	  // window.location.href = view
+	  // either this is not being set fast enough, or the memory is really bad
+	  // bad solution anyway
+	      history.push('/'+view);
+	  console.log('currentView: ', currentView)
+	  console.log('previousView: ', previousView)
   };
 
   return (

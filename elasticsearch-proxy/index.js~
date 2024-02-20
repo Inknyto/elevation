@@ -3,7 +3,7 @@ const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
-const { username, password } = require('./credentials');
+const { elasticusername, elasticpassword } = require('./credentials');
 
 const app = express();
 app.use(cors());
@@ -14,15 +14,19 @@ const port = 8080;
 const jwtSecret = 'your_secret_key';
 
 // Mock user data (replace with your user data retrieval logic)
-const users = [
-  { id: 1, username: 'user1', password: 'password1' },
-  { id: 2, username: 'user2', password: 'password2' },
-];
+// const users = [
+//   { id: 1, username: 'user1', password: 'password1' },
+//   { id: 2, username: 'user2', password: 'password2' },
+// ];
 
 // Middleware for extracting JWT from Authorization header
 // app.use(expressJwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless({ path: ['/login'] }));
 // The search engine no longer requires access token 
-app.use(expressJwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless({ path: ['/login', '/elasticsearch/software_jobs/_search', '/elasticsearch/senegal_entreprises_data/_search'] }));
+app.use(expressJwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless(
+	{ path: ['/login',
+'/elasticsearch/software_jobs/_search',
+'/elasticsearch/senegal_entreprises_data/_search',
+] }));
 
 // Define the Elasticsearch endpoint
 const elasticsearchEndpoint = 'http://localhost:9200';
@@ -36,7 +40,8 @@ const elasticProxy = createProxyMiddleware({
   },
   headers: {
     // Add your custom header here
-    'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+    'Authorization': `Basic ${btoa(`${elasticusername}:${elasticpassword}`)}`,
+   // 'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
   },
 });
 
@@ -53,22 +58,59 @@ app.use((req, res, next) => {
 });
 
 // Login route to generate JWT token
-app.post('/login', (req, res) => {
+// app.post('/login', (req, res) => {
+//   const { username, password } = req.body;
+// 	// console.log( username, password )
+// 	// console.log(  req.body )
+// 
+//   // Authenticate user (replace with your actual authentication logic)
+//   const user = users.find((u) => u.username === username && u.password === password);
+// 
+//   if (user) {
+//     // Generate JWT token
+//     const token = jwt.sign({ userId: user.id, username: user.username }, jwtSecret, { expiresIn: '1h' });
+//     res.json({ token });
+//   } else {
+//     res.status(401).json({ error: 'Invalid credentials' });
+//   }
+// });
+
+app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-	// console.log( username, password )
-	// console.log(  req.body )
 
-  // Authenticate user (replace with your actual authentication logic)
-  const user = users.find((u) => u.username === username && u.password === password);
+  try {
+    // Query Elasticsearch for user with the provided username
+	   const userResponse = await fetch(`http://localhost:9200/elevation_users/_search?q=username:${username}`, {
+      method: 'GET', // Use 'GET' for searching
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${btoa(`${elasticusername}:${elasticpassword}`)}`,
+      },
+    });
+    const userData = await userResponse.json();
+	  console.log('fetched user data: ',userData)
+console.log(userData.hits.hits[0]._source.password)
+    if (userData.hits.total.value === 1) {
+      const user = userData.hits.hits[0]._source;
 
-  if (user) {
-    // Generate JWT token
-    const token = jwt.sign({ userId: user.id, username: user.username }, jwtSecret, { expiresIn: '1h' });
-    res.json({ token });
-  } else {
-    res.status(401).json({ error: 'Invalid credentials' });
+      // Replace password comparison with a secure password hashing comparison
+      // For example, you can use bcrypt for password hashing
+      if (user.password === password) {
+        const token = jwt.sign({ userId: user.id, username: user.username }, jwtSecret, { expiresIn: '1h' });
+        res.json({ token });
+      } else {
+        res.status(401).json({ error: 'Invalid credentials' });
+      }
+    } else {
+      res.status(401).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching user data from Elasticsearch:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
 
 // Use the proxy for paths starting with '/elasticsearch'
 app.use('/elasticsearch', elasticProxy);

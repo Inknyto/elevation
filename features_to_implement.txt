@@ -40,7 +40,10 @@ Implementation:
 	- Either ways, he has no token so he gets redirected to the login page
 
 
-7- 
+7- Big problem:
+	Since the app does not have routes(only states), it brings you back on
+	the main page on every refresh. Should i use a state management
+	framework like redux?
 8- 
 9- 
 10- 

@@ -15,14 +15,14 @@ import Typography from '@mui/material/Typography';
 
 const App = () => {
   const [currentView, setCurrentView] = useState('search');
-  // const [previousView, setPreviousView] = useState('');
+  const [previousView, setPreviousView] = useState('');
 
   const onLogin = (token) => {
 	
     // Perform authentication logic here
     console.log('Token: ', token);
-	  console.log(sessionStorage)
 	sessionStorage.setItem('token', token)
+	  console.log(sessionStorage)
     // You can send a request to your authentication server or handle the logic as needed
   };
 
@@ -62,8 +62,12 @@ const App = () => {
   };
 
   const handleIconClick = (view) => {
-    // setPreviousView(currentView);
+    setPreviousView(currentView);
     setCurrentView(view);
+	  // either this is not being set fast enough, or the memory is really bad
+	  // bad solution anyway
+	  console.log('currentView: ', currentView)
+	  console.log('previousView: ', previousView)
   };
 
   return (

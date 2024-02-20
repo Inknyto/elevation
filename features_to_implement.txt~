@@ -31,7 +31,19 @@ Any attempt to retrieve those documents while the user is not logged in
 will result in a redirection to the login page first, then a redirection to
 the previous page with the proper data.  
 
-7- 
+Implementation:
+	- The user visits the page
+	- He sees the offers
+	- He sees the entreprise data
+	- He sees the map
+	- Either he logs in, or he tries to access unauthorized data
+	- Either ways, he has no token so he gets redirected to the login page
+
+
+7- Big problem:
+	Since the app does not have routes(only states), it brings you back on
+	the main page on every refresh. Should i use a state management
+	framework like redux?
 8- 
 9- 
 10- 
