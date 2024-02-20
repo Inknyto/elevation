@@ -215,18 +215,20 @@ setCurrentView('letter')
           description={selectedResult?.description}
         />
       )}
-      {showLetterComponent && (
-        <LetterComponent
-          letterFormData={letterFormData}
-          setLetterFormData={setLetterFormData}
-          onSendLetter={handleSendLetter}
-          onRemoveLetterDiv={handleRemoveLetterDiv}
-        />
-      )}
+      jjj
 
     </div>
 
   );
 };
-
+// Can be useful for showing an anditionnal popup
+// {showLetterComponent && (
+//         <LetterComponent
+//           letterFormData={letterFormData}
+//           setLetterFormData={setLetterFormData}
+//           onSendLetter={handleSendLetter}
+//           onRemoveLetterDiv={handleRemoveLetterDiv}
+//         />
+//       )}
+// 
 export default SearchComponent;

@@ -5,7 +5,7 @@ import SearchComponent from './SearchEngine/SearchComponent';
 import JobMap from './Map/JobMap'; // Import the Map component
 import FooterComponent from './Footer/FooterComponent';
 import LetterComponent from './Letter/LetterComponent';
-import LoginComponent from './Login/LoginComponent';
+// import LoginComponent from './Login/LoginComponent';
 import EntreprisesComponent from './Entreprises/EntreprisesComponent';
 
 const App = () => {
@@ -42,7 +42,8 @@ const App = () => {
       case 'letter':
         return 	<LetterComponent />;
       case 'login':
-        return 	<LoginComponent />;
+        // return 	<LoginComponent />;
+		return;
       case 'entreprises':
         return 	<EntreprisesComponent />;
 

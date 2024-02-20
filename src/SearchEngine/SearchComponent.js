@@ -215,7 +215,6 @@ setCurrentView('letter')
           description={selectedResult?.description}
         />
       )}
-      jjj
 
     </div>
 
