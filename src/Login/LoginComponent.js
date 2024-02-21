@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import './LoginComponent.css';
 import { authenticateUser } from './Authentication';
 
+import { signUserUp } from './SignUp';
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -31,6 +33,19 @@ const LoginComponent = ({ onLogin }) => {
     }
   };
 
+  const handleSignUp = async () => {
+    try {
+      const token = await signUserUp(loginData.username, loginData.password);
+      // Call onLogin with the authenticated user data
+	    console.log(token)
+      onLogin(token);
+    } catch (error) {
+      console.error('Sign Up error:', error);
+      // Handle login error (display error message, etc.)
+    }
+  };
+
+
 
   return (
    <Card id='login-card'>
@@ -55,6 +70,10 @@ const LoginComponent = ({ onLogin }) => {
 
       <Button variant="contained" color="primary" onClick={handleLogin}>
         Login
+      </Button>
+
+      <Button variant="contained" color="primary" onClick={handleSignUp}>
+        Sign Up
       </Button>
       </CardContent>
     </Card>

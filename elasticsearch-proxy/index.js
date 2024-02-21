@@ -24,9 +24,10 @@ const jwtSecret = 'your_secret_key';
 // The search engine no longer requires access token 
 app.use(expressJwt({ secret: jwtSecret, algorithms: ['HS256'] }).unless(
 	{ path: ['/login',
-'/elasticsearch/software_jobs/_search',
-'/elasticsearch/senegal_entreprises_data/_search',
-] }));
+		'/signup',
+		'/elasticsearch/software_jobs/_search',
+		'/elasticsearch/senegal_entreprises_data/_search',
+		] }));
 
 // Define the Elasticsearch endpoint
 const elasticsearchEndpoint = 'http://localhost:9200';
@@ -87,16 +88,19 @@ app.post('/login', async (req, res) => {
         'Authorization': `Basic ${btoa(`${elasticusername}:${elasticpassword}`)}`,
       },
     });
+
     const userData = await userResponse.json();
 	  console.log('fetched user data: ',userData)
-console.log(userData.hits.hits[0]._source.password)
+          console.log(userData.hits.hits[0]._source.password)
     if (userData.hits.total.value === 1) {
       const user = userData.hits.hits[0]._source;
+      const userId = userData.hits.hits[0]._id;
+	    console.log('fetched userId: ', userId)
 
       // Replace password comparison with a secure password hashing comparison
       // For example, you can use bcrypt for password hashing
       if (user.password === password) {
-        const token = jwt.sign({ userId: user.id, username: user.username }, jwtSecret, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: userId, username: user.username }, jwtSecret, { expiresIn: '1h' });
         res.json({ token });
       } else {
         res.status(401).json({ error: 'Invalid credentials' });
@@ -110,6 +114,54 @@ console.log(userData.hits.hits[0]._source.password)
   }
 });
 
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Query Elasticsearch for user with the provided username
+    const userResponse = await fetch(`http://localhost:9200/elevation_users/_search?q=username:${username}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Basic ${btoa(`${elasticusername}:${elasticpassword}`)}`,
+      },
+    });
+
+    const userData = await userResponse.json();
+
+    // Check if the user already exists
+    if (userData.hits.total.value === 1) {
+      res.status(409).json({ error: 'User already exists' });
+    } else {
+      // User does not exist, create a new user
+      const newUser = {
+        username,
+        password, // Replace with hashed password in a production environment
+        saved: {}, // You may customize this based on your requirements
+      };
+
+      // Update Elasticsearch index with the new user
+      await fetch('http://localhost:9200/elevation_users/_doc', {
+
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${btoa(`${elasticusername}:${elasticpassword}`)}`,
+        },
+        body: JSON.stringify(newUser),
+      });
+	    // okay, i will only use the username for generating the jwt
+	    // at least, only for the signup
+
+        const token = jwt.sign({ username: newUser.username }, jwtSecret, { expiresIn: '1h' });
+        res.json({ token });
+      // res.json({ message: 'User created successfully' });
+    }
+  } catch (error) {
+    console.error('Error checking user data in Elasticsearch:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 // Use the proxy for paths starting with '/elasticsearch'
