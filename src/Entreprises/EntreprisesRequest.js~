@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 // import { authenticateUser } from '../Login/Authentication.js';
-
-const token = sessionStorage.getItem('token')
+// Maybe implement a better handling of the token retrieval
 
 
 // const token = await authenticateUser('user1', 'password1');
@@ -47,8 +46,7 @@ const fetchEntreprisesResults = async (query) => {
 };
 
 export const fetchSelectedResult = async (id) => {
-    //return null;
-	console.log('hi from server: ',id)
+const token = sessionStorage.getItem('token')
   try {
     const response = await fetch(`http://localhost:8080/elasticsearch/senegal_entreprises_data/_doc/${id}`, {
       method: 'GET',

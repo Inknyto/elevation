@@ -57,24 +57,25 @@ const Icons = ({ onIconClick }) => {
     console.log('openUser icon clicked');
   };
 
+
   return (
     <div className="icons-container">
       <div className="icons-left">
         {/* Left Icons */}
         <div className="icon" onClick={toggleDarkMode}>
-          {darkMode ? <Sun stroke="yellow" /> : <Moon stroke="gray" />}
-          <p>{darkMode ? "Mode Clair" : "Mode Sombre"}</p>
+         {darkMode ?  <Sun /> :<Moon />}
+          <p> {darkMode ? "Mode Clair" : "Mode Sombre"}</p>
         </div>
         <div className="icon" onClick={showEmail}>
-          <Mail stroke="blue" />
+          <Mail />
           <p>E-mail</p>
         </div>
         <div className="icon" onClick={showEntreprises}>
-          <Entreprises stroke="green" />
+          <Entreprises />
           <p>Entreprises</p>
         </div>
         <div className="icon" onClick={showMap}>
-          <Map stroke="red" />
+          <Map />
           <p>Afficher la carte</p>
         </div>
       </div>
@@ -82,46 +83,46 @@ const Icons = ({ onIconClick }) => {
         {/* Right Icon */}
         <div className="icon" onClick={openUser}>
           <p>Mon Compte</p>
-          <User stroke="#ffffff" />
+          <User />
         </div>
         {/* Right Icon */}
         <div className="icon" onClick={handleRightIconClick}>
           <p>Offres enregistrées</p>
-          <Saved stroke="orange" />
+          <Saved />
         </div>
         {/* Left Icon */}
         <div className="icon" onClick={handleLeftIconClick}>
           <p>texte!</p>
-          <Sun stroke="yellow" />
+          <Sun />
         </div>
         {/* Right Icon */}
         <div className="icon" onClick={handleSearchButtonClick}>
           <p>Rechercher</p>
-          <Search stroke="black" />
+          <Search />
         </div>
       </div>
     </div>
   );
 };
-//
+
 //  return (
 //    <div className="icons-container">
 //      <div className="icons-left">
 //        {/* Left Icons */}
 //        <div className="icon" onClick={toggleDarkMode}>
-//         {darkMode ?  <Sun /> :<Moon />}
-//          <p> {darkMode ? "Mode Clair" : "Mode Sombre"}</p>
+//          {darkMode ? <Sun stroke="yellow" /> : <Moon stroke="gray" />}
+//          <p>{darkMode ? "Mode Clair" : "Mode Sombre"}</p>
 //        </div>
 //        <div className="icon" onClick={showEmail}>
-//          <Mail />
+//          <Mail stroke="blue" />
 //          <p>E-mail</p>
 //        </div>
 //        <div className="icon" onClick={showEntreprises}>
-//          <Entreprises />
+//          <Entreprises stroke="green" />
 //          <p>Entreprises</p>
 //        </div>
 //        <div className="icon" onClick={showMap}>
-//          <Map />
+//          <Map stroke="red" />
 //          <p>Afficher la carte</p>
 //        </div>
 //      </div>
@@ -129,25 +130,26 @@ const Icons = ({ onIconClick }) => {
 //        {/* Right Icon */}
 //        <div className="icon" onClick={openUser}>
 //          <p>Mon Compte</p>
-//          <User />
+//          <User stroke="#ffffff" />
 //        </div>
 //        {/* Right Icon */}
 //        <div className="icon" onClick={handleRightIconClick}>
 //          <p>Offres enregistrées</p>
-//          <Saved />
+//          <Saved stroke="orange" />
 //        </div>
 //        {/* Left Icon */}
 //        <div className="icon" onClick={handleLeftIconClick}>
 //          <p>texte!</p>
-//          <Sun />
+//          <Sun stroke="yellow" />
 //        </div>
 //        {/* Right Icon */}
 //        <div className="icon" onClick={handleSearchButtonClick}>
 //          <p>Rechercher</p>
-//          <Search />
+//          <Search stroke="black" />
 //        </div>
 //      </div>
 //    </div>
 //  );
 //};
+	
 export { Icons };

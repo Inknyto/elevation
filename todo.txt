@@ -1,0 +1,13 @@
+revert the default mode to light mode in DarkMode.js
+
+set the currentView and previousView as context so that they will be
+accessible throughout the app
+
+Use material ui for the single result containers (and why not material dividers for
+each line)
+
+Use material design labels for the skills 
+
+maybe remove the memoization of the requests(seems that it returns incorrect
+search results, might replace it with setting a delay for each request)
+

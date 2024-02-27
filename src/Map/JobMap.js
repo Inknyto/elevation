@@ -1,7 +1,7 @@
 // JobMap.js
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material';
-import { useSearchResults } from '../SearchEngine/SearchRequest';
+// import { useSearchResults } from '../SearchEngine/SearchRequest';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { ReactComponent as JobIcon } from '../Icons/assets/sun.svg';
@@ -54,7 +54,7 @@ useEffect(() => {
 }, [theme.palette.mode]);
 
 
-  const cachedSearchResults = useSearchResults(query);
+  // const cachedSearchResults = useSearchResults(query);
 // the actual coordinates for centering the map are given below:
   return (
     <div className="job-map-overlay">

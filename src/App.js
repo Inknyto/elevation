@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ReactComponent as Logo } from './Icons/assets/logo.svg';
 import { Icons } from './Icons/Icons';
 import SearchComponent from './SearchEngine/SearchComponent';
@@ -8,21 +8,16 @@ import LetterComponent from './Letter/LetterComponent';
 import LoginComponent from './Login/LoginComponent';
 import EntreprisesComponent from './Entreprises/EntreprisesComponent';
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-
-
 const App = () => {
   const [currentView, setCurrentView] = useState('search');
-  const [previousView, setPreviousView] = useState('');
+  // const [previousView, setPreviousView] = useState('');
 
+	// useRef was the savior i was looking for all this time
+	const previousView = useRef()
   const onLogin = (token) => {
-	
+     setCurrentView(previousView.current)	
     // Perform authentication logic here
-    console.log('Token: ', token);
 	sessionStorage.setItem('token', token)
-	  console.log(sessionStorage)
     // You can send a request to your authentication server or handle the logic as needed
   };
 
@@ -42,7 +37,7 @@ const App = () => {
   const renderCurrentView = () => {
     switch (currentView) {
       case 'search':
-        return <SearchComponent currentView={currentView} setCurrentView={setCurrentView} />;
+        return <SearchComponent currentView={currentView} setCurrentView={setCurrentView}  />; //previousView={previousView} setPreviousView={setPreviousView} 
       case 'map':
         return <JobMap jobs={jobs} />;
       // Add more cases for other views as needed
@@ -51,7 +46,7 @@ const App = () => {
       case 'login':
 
 
-        return 	<LoginComponent onLogin={onLogin}/>;
+        return 	<LoginComponent onLogin={onLogin} />;
       case 'entreprises':
         return 	<EntreprisesComponent currentView={currentView} setCurrentView={setCurrentView} />;
 
@@ -62,13 +57,22 @@ const App = () => {
   };
 
   const handleIconClick = (view) => {
-    setPreviousView(currentView);
+	// setPreviousView(currentView);
+	// previousView.current = currentView
+	  console.log(previousView)
     setCurrentView(view);
-	  // either this is not being set fast enough, or the memory is really bad
-	  // bad solution anyway
-	  console.log('currentView: ', currentView)
-	  console.log('previousView: ', previousView)
   };
+
+	// useEffect is really a life saver, let's see if 
+	// it will help me redirect the user on login
+  useEffect(() => {
+	  // console.log('previousView handleIconClick: ',previousView )
+	  console.log('currentView handleIconClick: ',currentView )
+      return () => {
+
+	previousView.current = currentView
+      }
+  }, [currentView]);
 
   return (
     <div className="app">

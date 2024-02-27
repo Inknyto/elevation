@@ -1,52 +1,5 @@
-4- implement the user authentication:
-	The authentication will be entirely managed by the proxy server. 
-	When the user first gets to the website:
-		What will be available:
-		- the job offers will be available
-		- the entreprises search will be available
-		- the login view will be available
-		- the map view will be available
-
-		What will not be available:
-		- the email view will not be available
-		- the 'more' button will not be available(both for job offers
-		  and entreprises data)
-		- the Saved Offers view will not be available
-
-Ideas of implementation:
-	The search routes for the job offers and the entreprises search 
-	will not need a jwt token. 
-	The queries on a specific document will need a jwt token. 
-	If the client gets a bad response from the server(e.g authentication
-	problem), it will redirect the user to the login page with a message
-	'veuillez login d'abord'. 
-	The client will send the requests which needs a token with the token
-	stored in the session storage. This will have two advantages:
-		1- The user will not need to login anytime the page refreshes,
-		2- The token expiration will result in a redirection of
-		the user to the login page
-
-That way, the email and saved job offers will be stored in elasticsearch. 
-Any attempt to retrieve those documents while the user is not logged in 
-will result in a redirection to the login page first, then a redirection to
-the previous page with the proper data.  
-
-Implementation:
-	- The user visits the page
-	- He sees the offers
-	- He sees the entreprise data
-	- He sees the map
-	- Either he logs in, or he tries to access unauthorized data
-	- Either ways, he has no token so he gets redirected to the login page
-
-
-7- Big problem:
-	Since the app does not have routes(only states), it brings you back on
-	the main page on every refresh. Should i use a state management
-	framework like redux?
-8- 
-9- 
-10- 
-11- 
-12- 
-13- 
+1- Implement rigid error handling 
+2- Redirect the user on login and signup (previousView, currentView)
+3- Implement the offer saving
+4- Implement the letter saving and updating logic
+5- Implement the entreprises view display

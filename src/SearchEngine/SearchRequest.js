@@ -1,14 +1,33 @@
 import { useMemo } from 'react';
 
-const token = sessionStorage.getItem('token')
 
-export const useSearchResults = (query) => {
-  return useMemo(() => {
-    return fetchSearchResults(query);
-  }, [query]);
-};
+ export const useSearchResults = (query) => {
+   return useMemo(() => {
+     return fetchSearchResults(query);
+   }, [query]);
+ };
+ 
 
-const fetchSearchResults = async (query) => {
+
+// export const useSearchResults = (query) => {
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const result = await fetchSearchResults(query);
+//         // Process the result or update component state
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+// 
+//     fetchData();
+//   }, [query]);
+// };
+// 
+// 
+
+
+export const fetchSearchResults = async (query) => {
   try {
 const response = await fetch(`http://localhost:8080/elasticsearch/software_jobs/_search?q=*${query}*&size=1000`, {
 
@@ -34,6 +53,7 @@ const response = await fetch(`http://localhost:8080/elasticsearch/software_jobs/
 };
 
 export const fetchSelectedResult = async (id) => {
+  const token = sessionStorage.getItem('token')
 
   try {
     const response = await fetch(`http://localhost:8080/elasticsearch/software_jobs/_doc/${id}`, {

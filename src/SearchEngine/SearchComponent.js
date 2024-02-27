@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardActions, Button, Typography, Outline
 import LetterComponent from '../Letter/LetterComponent';
 import './SearchComponent.css';
 
-
-const SearchComponent = ({ currentView, setCurrentView }) => {
+// previousVIew, setPreviousView,
+const SearchComponent = ({  currentView, setCurrentView }) => {
   const theme = useTheme();
   // const [showLetterComponent, setShowLetterComponent] = useState(false);
 
@@ -18,6 +18,7 @@ const SearchComponent = ({ currentView, setCurrentView }) => {
   const [query, setQuery] = useState('');
   const [id, setId] = useState(''); 
 	
+	// really? why did I cache that? 
   const cachedSearchResults = useSearchResults(query);
 // No caching for the selected result
 //  const cachedSelectedResult = useSelectedResult(id);
@@ -44,8 +45,9 @@ const SearchComponent = ({ currentView, setCurrentView }) => {
   useEffect(() => {
     // This code will be executed when the component is mounted
     // setQuery('');
-	const initialSearch = '';
-handleSearchInputChange({ 'target' : initialSearch })
+	  
+handleSearchInputChange({ 'target' : '' })
+	    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // The empty dependency array ensures that this effect runs only once, equivalent to componentDidMount
 
 const showMore = async (id) => {
@@ -57,6 +59,7 @@ const showMore = async (id) => {
        setSelectedResult(selectedValue);
        setBlurrerVisible(true)
      } else {
+	// setPreviousView('search')
        setCurrentView('login')
 	     // document.body.append('You must login first')
 	      alert('You must login first');

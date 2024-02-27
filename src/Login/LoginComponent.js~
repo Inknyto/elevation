@@ -38,6 +38,7 @@ const LoginComponent = ({ onLogin }) => {
       const token = await signUserUp(loginData.username, loginData.password);
       // Call onLogin with the authenticated user data
       onLogin(token);
+	    console.log(token)
     } catch (error) {
       console.error('Sign Up error:', error);
       // Handle login error (display error message, etc.)

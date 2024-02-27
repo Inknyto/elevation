@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchResults, fetchSelectedResult } from './SearchRequest';
+import { fetchSearchResults, fetchSelectedResult } from './SearchRequest';
 import { useTheme } from '@mui/material';
 import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from '../Letter/LetterComponent';
 import './SearchComponent.css';
 
-
-const SearchComponent = () => {
+// previousVIew, setPreviousView,
+const SearchComponent = ({  currentView, setCurrentView }) => {
   const theme = useTheme();
-  const [showLetterComponent, setShowLetterComponent] = useState(false);
+  // const [showLetterComponent, setShowLetterComponent] = useState(false);
 
   const [isInputDocked, setIsInputDocked] = useState(false);
 
@@ -18,7 +18,7 @@ const SearchComponent = () => {
   const [query, setQuery] = useState('');
   const [id, setId] = useState(''); 
 	
-  const cachedSearchResults = useSearchResults(query);
+  // const cachedSearchResults = useSearchResults(query);
 // No caching for the selected result
 //  const cachedSelectedResult = useSelectedResult(id);
 
@@ -34,34 +34,37 @@ const SearchComponent = () => {
   const handleSearchInputChange = async (event) => {
     // Use cachedSearchResults directly
     setQuery(event.target.value);
-    const resolvedValue = await cachedSearchResults;
+    const resolvedValue = await fetchSearchResults(query); // cachedSearchResults;
     // setSearchResults(cachedSearchResults);
     setSearchResults(resolvedValue);
     // console.log(resolvedValue)
 	  // logs the array of jobs data
   };
 
+  useEffect(() => {
+    // This code will be executed when the component is mounted
+    // setQuery('');
+	  
+handleSearchInputChange({ 'target' : '' })
+	    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // The empty dependency array ensures that this effect runs only once, equivalent to componentDidMount
+
 const showMore = async (id) => {
   try {
-    setId(id);
-	  // console.log('The Id: ',id)
-  // const cachedSelectedResult = fetchSelectedResult(id);
-	  // console.log(cachedSelectedResult)
-   // This can show the previous content of the blurrer 
-	    // setBlurrerVisible(true)
-    // Wait for the cachedSelectedResult to be resolved
      const selectedValue = await fetchSelectedResult(id);
-      setSelectedResult(selectedValue);
-      setBlurrerVisible(true)
 
     // Check if selectedValue is not null before updating the state
-  //  if (selectedValue) {
-    //  setSelectedResult(cachedSelectedResult);
-   // } else {
-
+     if (selectedValue) {
+       setSelectedResult(selectedValue);
+       setBlurrerVisible(true)
+     } else {
+	// setPreviousView('search')
+       setCurrentView('login')
+	     // document.body.append('You must login first')
+	      alert('You must login first');
       // Handle the case when selectedValue is null or undefined
       // You may want to display an error message or handle it as needed
-   // }
+    }
   } catch (error) {
     console.error('Error in showMore:', error);
   }
@@ -80,7 +83,9 @@ const showMore = async (id) => {
   };
 
   const toggleLetter = () => {
-    setShowLetterComponent(!showLetterComponent);
+setCurrentView('letter')
+	  // this function may be able to provide the letter with the proper information
+//    setShowLetterComponent(!showLetterComponent);
   };
 
   const handleSendLetter = () => {
@@ -207,18 +212,19 @@ const showMore = async (id) => {
           description={selectedResult?.description}
         />
       )}
-      {showLetterComponent && (
-        <LetterComponent
-          letterFormData={letterFormData}
-          setLetterFormData={setLetterFormData}
-          onSendLetter={handleSendLetter}
-          onRemoveLetterDiv={handleRemoveLetterDiv}
-        />
-      )}
 
     </div>
 
   );
 };
-
+// Can be useful for showing an anditionnal popup
+// {showLetterComponent && (
+//         <LetterComponent
+//           letterFormData={letterFormData}
+//           setLetterFormData={setLetterFormData}
+//           onSendLetter={handleSendLetter}
+//           onRemoveLetterDiv={handleRemoveLetterDiv}
+//         />
+//       )}
+// 
 export default SearchComponent;

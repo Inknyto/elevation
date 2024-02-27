@@ -1,8 +1,9 @@
 // JobMap.js
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material';
-import { useSearchResults } from '../SearchEngine/SearchRequest';
+// import { useSearchResults } from '../SearchEngine/SearchRequest';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 import { ReactComponent as JobIcon } from '../Icons/assets/sun.svg';
 import "leaflet/dist/leaflet.css"
 import './JobMap.css'; // Import a CSS file for styling
