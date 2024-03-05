@@ -4,3 +4,5 @@
 4- Implement the letter saving and updating logic
 5- Implement the entreprises view display
 6- Add the data extraction and transforming logic
+
+The current login state is handled using a function passed as a prop to the logincomponent

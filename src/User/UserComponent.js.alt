@@ -1,0 +1,20 @@
+// UserComponent.js
+import React, { useContext } from 'react';
+import { AuthContext } from './Login/AuthContext'; // Import the AuthContext
+
+const UserComponent = () => {
+  const { isLoggedIn, handleLogout } = useContext(AuthContext);
+
+  return (
+    isLoggedIn ? (
+      <div>
+        {/* User-specific content here */}
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    ) : (
+      <LoginComponent /> // Render LoginComponent if not logged in
+    )
+  );
+};
+
+export default UserComponent;

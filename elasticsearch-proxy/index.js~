@@ -11,7 +11,7 @@ app.use(express.json()); // Add this line to parse JSON request bodies
 const port = 8080;
 
 // Secret key for JWT (replace with your secret key)
-const jwtSecret = 'your_secret_key';
+const jwtSecret =  elasticusername + elasticpassword;
 
 // Mock user data (replace with your user data retrieval logic)
 // const users = [
@@ -81,7 +81,7 @@ app.post('/login', async (req, res) => {
 
   try {
     // Query Elasticsearch for user with the provided username
-	   const userResponse = await fetch(`http://localhost:9200/elevation_users/_search?q=username:${username}`, {
+      const userResponse = await fetch(`http://localhost:9200/elevation_users/_search?q=username:${username}`, {
       method: 'GET', // Use 'GET' for searching
       headers: {
         'Content-Type': 'application/json',
@@ -90,15 +90,17 @@ app.post('/login', async (req, res) => {
     });
 
     const userData = await userResponse.json();
-	  console.log('fetched user data: ',userData)
-          console.log(userData.hits.hits[0]._source.password)
+      console.log('fetched user data: ',userData)
+      console.log(userData.hits.hits[0]._source.password)
     if (userData.hits.total.value === 1) {
       const user = userData.hits.hits[0]._source;
+      const userId = userData.hits.hits[0]._id;
+      console.log('fetched userId: ', userId)
 
       // Replace password comparison with a secure password hashing comparison
       // For example, you can use bcrypt for password hashing
       if (user.password === password) {
-        const token = jwt.sign({ userId: user.id, username: user.username }, jwtSecret, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: userId, username: user.username }, jwtSecret, { expiresIn: '1h' });
         res.json({ token });
       } else {
         res.status(401).json({ error: 'Invalid credentials' });
@@ -139,7 +141,7 @@ app.post('/signup', async (req, res) => {
       };
 
       // Update Elasticsearch index with the new user
-      const createUserResponse = await fetch('http://localhost:9200/elevation_users/_doc', {
+      await fetch('http://localhost:9200/elevation_users/_doc', {
 
         method: 'POST',
         headers: {
@@ -148,12 +150,10 @@ app.post('/signup', async (req, res) => {
         },
         body: JSON.stringify(newUser),
       });
-	    // try and see if i can use the id for generating the jwt token 
-	    console.log('createUserResponse: ',createUserResponse)
 	    // okay, i will only use the username for generating the jwt
+	    // at least, only for the signup
 
-	    // most fucked up error ever
-        const token = jwt.sign({ username: user.username }, jwtSecret, { expiresIn: '1h' });
+        const token = jwt.sign({ username: newUser.username }, jwtSecret, { expiresIn: '1h' });
         res.json({ token });
       // res.json({ message: 'User created successfully' });
     }

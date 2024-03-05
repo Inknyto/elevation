@@ -10,7 +10,7 @@ export const useEntreprisesResults = (query) => {
 const fetchEntreprisesResults = async (query) => {
 
   try {
-    const response = await fetch(`http://localhost:8080/elasticsearch/senegal_entreprises_data/_search?q=*${query}*&size=10`, {
+    const response = await fetch(`http://localhost:8080/elasticsearch/senegal_entreprises_data/_search?q=*${query}*&size=100`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

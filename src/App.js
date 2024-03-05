@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ReactComponent as Logo } from './Icons/assets/logo.svg';
 import { Icons } from './Icons/Icons';
 import SearchComponent from './SearchEngine/SearchComponent';
@@ -6,84 +6,93 @@ import JobMap from './Map/JobMap'; // Import the Map component
 import FooterComponent from './Footer/FooterComponent';
 import LetterComponent from './Letter/LetterComponent';
 import LoginComponent from './Login/LoginComponent';
+import UserComponent from './User/UserComponent';
+
 import EntreprisesComponent from './Entreprises/EntreprisesComponent';
-
+ 
+import { AuthContext, AuthProvider } from './Login/AuthContext'; // Import the AuthContext
+//
+ // console.log(AuthContext, AuthProvider)
 const App = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+//	console.log('imported isLoggedIn: ',isLoggedIn)
   const [currentView, setCurrentView] = useState('search');
-  // const [previousView, setPreviousView] = useState('');
+  // const [previousView, setPreviousView] = useState(''); // Removed
 
-	// useRef was the savior i was looking for all this time
-	const previousView = useRef()
+  // useRef is utilized for storing the previous view
+  const previousView = useRef();
+
   const onLogin = (token) => {
-     setCurrentView(previousView.current)	
-    // Perform authentication logic here
-	sessionStorage.setItem('token', token)
-    // You can send a request to your authentication server or handle the logic as needed
+    setCurrentView(previousView.current);
+    sessionStorage.setItem('token', token);
+    setIsLoggedIn(true)
+//	  console.log('isLoggedIn from App.js(imported from context): ', isLoggedIn)
   };
 
+	// works like a charm
+  useEffect(() => {
+    console.log('isLoggedIn from App.js (imported from context): ', isLoggedIn);
+  }, [isLoggedIn]); // useEffect will run when isLoggedIn changes
+
+
+
   const jobs = [
-    {
-      id: 1,
-      title: "Software Engineer",
-      company_name: "Acme Inc.",
-// The marker puts a mark where the job is located
-      latitude: 14.7175936,
-      longitude: -17.361859914,
-      description: "Develop and maintain software applications...",
-    },
-    // Add more job objects here
+    // ... job data
   ];
 
   const renderCurrentView = () => {
     switch (currentView) {
       case 'search':
-        return <SearchComponent currentView={currentView} setCurrentView={setCurrentView}  />; //previousView={previousView} setPreviousView={setPreviousView} 
+        return (
+          <SearchComponent
+            currentView={currentView}
+            setCurrentView={setCurrentView}
+          />
+        );
       case 'map':
         return <JobMap jobs={jobs} />;
       // Add more cases for other views as needed
       case 'letter':
-        return 	<LetterComponent />;
+        return <LetterComponent />;
       case 'login':
-
-
-        return 	<LoginComponent onLogin={onLogin} />;
+          return isLoggedIn ? <UserComponent /> : <LoginComponent onLogin={onLogin} />;
+    //    return <LoginComponent onLogin={onLogin} />;
+//      case 'user':
+  //      return <UserComponent />;
       case 'entreprises':
-        return 	<EntreprisesComponent currentView={currentView} setCurrentView={setCurrentView} />;
-
-
+        return (
+          <EntreprisesComponent
+            currentView={currentView}
+            setCurrentView={setCurrentView}
+          />
+        );
       default:
         return null;
     }
   };
 
   const handleIconClick = (view) => {
-	// setPreviousView(currentView);
-	// previousView.current = currentView
-	  console.log(previousView)
+    previousView.current = currentView;
     setCurrentView(view);
   };
 
-	// useEffect is really a life saver, let's see if 
-	// it will help me redirect the user on login
+  // Save the current view to the useRef before updating on component unmount
   useEffect(() => {
-	  // console.log('previousView handleIconClick: ',previousView )
-	  console.log('currentView handleIconClick: ',currentView )
-      return () => {
-
-	previousView.current = currentView
-      }
+    return () => {
+      previousView.current = currentView;
+    };
   }, [currentView]);
 
   return (
-    <div className="app">
-      <Logo />
-      <Icons onIconClick={handleIconClick} />
+      <div className="app">
+        <Logo />
+        <Icons onIconClick={handleIconClick} />
 
-      {/* Conditionally render the current view based on the switch statement */}
-      {renderCurrentView()}
+        {/* Conditionally render the current view based on the switch statement */}
+        {renderCurrentView()}
 
-      <FooterComponent />
-    </div>
+        <FooterComponent />
+      </div>
   );
 };
 

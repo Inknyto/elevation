@@ -61,11 +61,12 @@ const showMore = async (id) => {
 
     // Check if selectedValue is not null before updating the state
     if (selectedValue) {
+      console.log(selectedValue)
       setSelectedResult(selectedValue);
       setBlurrerVisible(true)
     } else {
 	setCurrentView('login');
-	    alert('You must login first!!');
+        alert('You must login first!!');
     }
   } catch (error) {
     console.error('Error in showMore:', error);
@@ -94,15 +95,21 @@ const showMore = async (id) => {
   };
 
 
-  const CardComponent = ({ Nom, Type, Region, Arrondissement, Tél, onCloseClick }) => {
+  const CardComponent = ({ Nom, Type, Region, Arrondissement, Commune, Tél, onCloseClick }) => {
+	  // 'Nom', 'Type', 'Region', 'Arrondissement', 'Commune', 'Quartier', 'Tél', 'Statut ligne'
     return (
       <div className="modal">
         <Card variant="outlined" className="job-card">
           <CardContent>
-            <CardHeader Nom={Nom} subheader={`${Type}, ${Region}`} />
+            <CardHeader Nom={Nom} subheader={Nom} />
+
             <Typography component="span" >
               <Typography component="span" variant="body2" color="textSecondary">
+                <strong> Secteur d'activité: </strong> {Type}<br />
                 <strong>Arrondissement:</strong> {Arrondissement}
+              </Typography><br />
+              <Typography component="span" variant="body2" color="textSecondary">
+		{Commune}
               </Typography><br />
               <div className="scrollable-text">
                 <Typography component="span" variant="body2" color="textSecondary">
@@ -112,7 +119,7 @@ const showMore = async (id) => {
             </Typography>
             <CardActions>
               <Button variant="outlined" onClick={toggleLetter}>
-                Apply
+                consulter le site web
               </Button>
             </CardActions>
             <CardActions>
@@ -186,7 +193,7 @@ const showMore = async (id) => {
             </Button>
 		</div>
             <div key={result.id+'skills'} className="job_skills">
-              <h3>Required_skills:</h3>
+              <h3>Voir sur la carte</h3>
 
             </div>
           </div>

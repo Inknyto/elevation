@@ -7,6 +7,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { DarkModeProvider, DarkModeContext } from './Theme/DarkMode';
 import { lightTheme, darkTheme } from './Theme/Theme';
 
+import AuthProvider from './Login/AuthContext';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function AppWithTheme() {
@@ -23,7 +25,9 @@ function AppWithTheme() {
 root.render(
   <DarkModeProvider>
     <React.StrictMode>
-      <AppWithTheme />
+      <AuthProvider>
+        <AppWithTheme />
+      </AuthProvider>
     </React.StrictMode>
   </DarkModeProvider>
 );

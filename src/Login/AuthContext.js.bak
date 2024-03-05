@@ -1,0 +1,24 @@
+import React, { createContext, useState } from 'react';
+
+export const AuthContext = createContext({
+  isLoggedIn: false,
+  setIsLoggedIn: () => {},
+});
+
+const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = (token) => {
+    sessionStorage.setItem('token', token);
+    setIsLoggedIn(true);
+    console.log('isLoggedIn from context: ', isLoggedIn);
+  };
+
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, handleLogin }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthProvider;

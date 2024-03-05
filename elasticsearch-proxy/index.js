@@ -11,7 +11,7 @@ app.use(express.json()); // Add this line to parse JSON request bodies
 const port = 8080;
 
 // Secret key for JWT (replace with your secret key)
-const jwtSecret = 'your_secret_key';
+const jwtSecret =  elasticusername + elasticpassword;
 
 // Mock user data (replace with your user data retrieval logic)
 // const users = [
@@ -81,7 +81,7 @@ app.post('/login', async (req, res) => {
 
   try {
     // Query Elasticsearch for user with the provided username
-	   const userResponse = await fetch(`http://localhost:9200/elevation_users/_search?q=username:${username}`, {
+      const userResponse = await fetch(`http://localhost:9200/elevation_users/_search?q=username:${username}`, {
       method: 'GET', // Use 'GET' for searching
       headers: {
         'Content-Type': 'application/json',
@@ -90,12 +90,12 @@ app.post('/login', async (req, res) => {
     });
 
     const userData = await userResponse.json();
-	  console.log('fetched user data: ',userData)
-          console.log(userData.hits.hits[0]._source.password)
+      console.log('fetched user data: ',userData)
+      console.log(userData.hits.hits[0]._source.password)
     if (userData.hits.total.value === 1) {
       const user = userData.hits.hits[0]._source;
       const userId = userData.hits.hits[0]._id;
-	    console.log('fetched userId: ', userId)
+      console.log('fetched userId: ', userId)
 
       // Replace password comparison with a secure password hashing comparison
       // For example, you can use bcrypt for password hashing
