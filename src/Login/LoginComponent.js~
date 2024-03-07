@@ -26,8 +26,9 @@ const LoginComponent = ({ onLogin }) => {
     try {
       const token = await authenticateUser(loginData.username, loginData.password);
       // Call onLogin with the authenticated user data
-      onLogin(token);
+      onLogin(token, loginData.username);
     } catch (error) {
+	    alert ('Erreur d\'authentification')
       console.error('Login error:', error);
       // Handle login error (display error message, etc.)
     }
@@ -37,9 +38,10 @@ const LoginComponent = ({ onLogin }) => {
     try {
       const token = await signUserUp(loginData.username, loginData.password);
       // Call onLogin with the authenticated user data
-      onLogin(token);
+      onLogin(token, loginData.username);
 	    console.log(token)
     } catch (error) {
+	    alert ('Erreur d\'inscription')
       console.error('Sign Up error:', error);
       // Handle login error (display error message, etc.)
     }

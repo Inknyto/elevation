@@ -1,5 +1,6 @@
 // Authentication.js
 const authenticateUser = async (username, password) => {
+	console.log(username, password)
   try {
     const response = await fetch('http://localhost:8080/login', {
       method: 'POST',
@@ -11,6 +12,7 @@ const authenticateUser = async (username, password) => {
 
     if (!response.ok) {
       throw new Error('Authentication failed');
+	return 'Erreur d\'authentification'
     }
 
     const data = await response.json();

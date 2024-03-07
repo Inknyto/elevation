@@ -12,6 +12,7 @@ const authenticateUser = async (username, password) => {
 
     if (!response.ok) {
       throw new Error('Authentication failed');
+	return 'Erreur d\'authentification';
     }
 
     const data = await response.json();

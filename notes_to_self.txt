@@ -1,0 +1,6 @@
+don't be tricked by the chosen result context. It is for the letter to  be
+generated, since the selected result has already been chosen for the name of
+the state. Therefore, chosen result is for the context to be exported and used
+by the letter component. 
+
+The hardest thing about development is definitely naming things

@@ -1,8 +1,10 @@
 1- Implement rigid error handling 
-2- Redirect the user on login and signup (previousView, currentView)
 3- Implement the offer saving
 4- Implement the letter saving and updating logic
 5- Implement the entreprises view display
 6- Add the data extraction and transforming logic
-
+Implement token expoiration(or maybe not)
 The current login state is handled using a function passed as a prop to the logincomponent
+
+Should i use a context for the selected offer? 
+Maybe i should've used redux at the very beginning

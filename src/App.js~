@@ -7,10 +7,10 @@ import FooterComponent from './Footer/FooterComponent';
 import LetterComponent from './Letter/LetterComponent';
 import LoginComponent from './Login/LoginComponent';
 import UserComponent from './User/UserComponent';
-
+import { ChosenResultProvider } from 'SearchEngine/ChosenResultContext';
 import EntreprisesComponent from './Entreprises/EntreprisesComponent';
  
-import { AuthContext, AuthProvider } from './Login/AuthContext'; // Import the AuthContext
+import { AuthContext } from './Login/AuthContext'; // Import the AuthContext
 //
  // console.log(AuthContext, AuthProvider)
 const App = () => {
@@ -22,16 +22,17 @@ const App = () => {
   // useRef is utilized for storing the previous view
   const previousView = useRef();
 
-  const onLogin = (token) => {
+  const onLogin = (token, username) => {
     setCurrentView(previousView.current);
     sessionStorage.setItem('token', token);
+    sessionStorage.setItem('username', username);
     setIsLoggedIn(true)
 //	  console.log('isLoggedIn from App.js(imported from context): ', isLoggedIn)
   };
 
 	// works like a charm
   useEffect(() => {
-    console.log('isLoggedIn from App.js (imported from context): ', isLoggedIn);
+    // console.log('isLoggedIn from App.js (imported from context): ', isLoggedIn);
   }, [isLoggedIn]); // useEffect will run when isLoggedIn changes
 
 
@@ -84,6 +85,7 @@ const App = () => {
   }, [currentView]);
 
   return (
+    <ChosenResultProvider>
       <div className="app">
         <Logo />
         <Icons onIconClick={handleIconClick} />
@@ -93,6 +95,7 @@ const App = () => {
 
         <FooterComponent />
       </div>
+    </ChosenResultProvider>
   );
 };
 

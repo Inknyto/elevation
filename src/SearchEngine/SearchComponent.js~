@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSearchResults, fetchSelectedResult } from './SearchRequest';
 import { useTheme } from '@mui/material';
 import { Card, CardContent, CardHeader, CardActions, Button, Typography, OutlinedInput } from '@mui/material';
 import LetterComponent from '../Letter/LetterComponent';
+import { ChosenResultContext } from './ChosenResultContext';
 import './SearchComponent.css';
 
 // previousVIew, setPreviousView,
 const SearchComponent = ({  currentView, setCurrentView }) => {
   const theme = useTheme();
   // const [showLetterComponent, setShowLetterComponent] = useState(false);
-
+  const { chosenResult, setChosenResult } = useContext(ChosenResultContext);
   const [isInputDocked, setIsInputDocked] = useState(false);
 
   const [searchResults, setSearchResults] = useState([]);
@@ -57,6 +58,7 @@ const showMore = async (id) => {
     // Check if selectedValue is not null before updating the state
      if (selectedValue) {
        setSelectedResult(selectedValue);
+	     // console.log('selectedValue to be used: ',selectedValue)
        setBlurrerVisible(true)
      } else {
 	// setPreviousView('search')
@@ -83,10 +85,12 @@ const showMore = async (id) => {
     setBlurrerVisible(false);
   };
 
-  const toggleLetter = () => {
-setCurrentView('letter')
-	  // this function may be able to provide the letter with the proper information
-//    setShowLetterComponent(!showLetterComponent);
+  const showLetter = (selectedResult) => {
+    setCurrentView('letter');
+    console.log('selectedResult for letter: ', selectedResult);
+    setChosenResult(selectedResult);
+    //     this function may be able to provide the letter with the proper information
+    //    setShowLetterComponent(!showLetterComponent);
   };
 
   const handleSendLetter = () => {
@@ -112,7 +116,7 @@ setCurrentView('letter')
               </div>
             </Typography>
             <CardActions>
-              <Button variant="outlined" onClick={toggleLetter}>
+              <Button variant="outlined" onClick={showLetter(selectedResult)}>
                 Apply
               </Button>
             </CardActions>
