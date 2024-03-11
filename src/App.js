@@ -7,7 +7,6 @@ import FooterComponent from './Footer/FooterComponent';
 import LetterComponent from './Letter/LetterComponent';
 import LoginComponent from './Login/LoginComponent';
 import UserComponent from './User/UserComponent';
-import { ChosenResultProvider } from './SearchEngine/ChosenResultContext';
 import EntreprisesComponent from './Entreprises/EntreprisesComponent';
  
 import { AuthContext } from './Login/AuthContext'; // Import the AuthContext
@@ -56,7 +55,7 @@ const App = () => {
       case 'letter':
         return <LetterComponent />;
       case 'login':
-          return isLoggedIn ? <UserComponent /> : <LoginComponent onLogin={onLogin} />;
+        return isLoggedIn ? <UserComponent /> : <LoginComponent onLogin={onLogin} />;
     //    return <LoginComponent onLogin={onLogin} />;
 //      case 'user':
   //      return <UserComponent />;
@@ -85,7 +84,6 @@ const App = () => {
   }, [currentView]);
 
   return (
-    <ChosenResultProvider>
       <div className="app">
         <Logo />
         <Icons onIconClick={handleIconClick} />
@@ -95,7 +93,6 @@ const App = () => {
 
         <FooterComponent />
       </div>
-    </ChosenResultProvider>
   );
 };
 

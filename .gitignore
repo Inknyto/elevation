@@ -11,7 +11,9 @@
 /elasticsearch-proxy/credentials.js
 /src/Letter/gemini_api_key.js
 /src/Letter/stolenapikey.txt
-
+/jobs_data/api_key.py
+/jobs_data/__pycache__
+/jobs_data/Transformation/old
 
 /to_phone
 /to_phone.tar.gz

@@ -85,13 +85,19 @@ const showMore = async (id) => {
     setBlurrerVisible(false);
   };
 
-  const showLetter = (selectedResult) => {
+  const showLetter = () => {
     setCurrentView('letter');
-    console.log('selectedResult for letter: ', selectedResult);
+    // console.log('selectedResult for letter: ', selectedResult);
     setChosenResult(selectedResult);
+    console.log('selectedResult for letter: ', selectedResult);
+//	   console.log(chosenResult, setChosenResult)
     //     this function may be able to provide the letter with the proper information
     //    setShowLetterComponent(!showLetterComponent);
   };
+
+// useEffect(()=>{
+//      console.log('chosenResult for letter: ', chosenResult);
+// },[chosenResult])
 
   const handleSendLetter = () => {
   };
@@ -116,7 +122,7 @@ const showMore = async (id) => {
               </div>
             </Typography>
             <CardActions>
-              <Button variant="outlined" onClick={showLetter(selectedResult)}>
+              <Button variant="outlined" onClick={showLetter}>
                 Apply
               </Button>
             </CardActions>

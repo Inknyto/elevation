@@ -1,5 +1,5 @@
 // This context is for the chosen result to be used by the letter generator
-import React, { createContext, useState, useEffect} from 'react';
+import React, { createContext, useState } from 'react';
 
 const ChosenResultContext = createContext();
 

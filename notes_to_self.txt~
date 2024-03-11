@@ -3,6 +3,4 @@ generated, since the selected result has already been chosen for the name of
 the state. Therefore, chosen result is for the context to be exported and used
 by the letter component. 
 
-But it still does not work. The state is not getting changed. 
-
 The hardest thing about development is definitely naming things

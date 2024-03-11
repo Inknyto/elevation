@@ -5,6 +5,7 @@ import './style.css';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { DarkModeProvider, DarkModeContext } from './Theme/DarkMode';
+import { ChosenResultProvider } from './SearchEngine/ChosenResultContext';
 import { lightTheme, darkTheme } from './Theme/Theme';
 
 import { AuthProvider } from './Login/AuthContext';
@@ -26,7 +27,9 @@ root.render(
   <DarkModeProvider>
     <React.StrictMode>
       <AuthProvider>
-        <AppWithTheme />
+        <ChosenResultProvider>
+          <AppWithTheme />
+        </ChosenResultProvider>
       </AuthProvider>
     </React.StrictMode>
   </DarkModeProvider>

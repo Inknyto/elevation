@@ -69,7 +69,7 @@ export const fetchSelectedResult = async (id) => {
     }
 
     const data = await response.json();
-	  console.log(data._source.title)
+    console.log(data._source.title)
     return data._source;
   } catch (error) {
     console.error('Error fetching data from Elasticsearch:', error);
